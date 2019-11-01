@@ -1,0 +1,25 @@
+{
+  "name": "cs546_image_proj",
+  "version": "1.0.0",
+  "description": "cs546 image project website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbjag/cs546_image_proj.git"
+  },
+  "author": "Theodore Jagodits, Sam Kraus, Kurt Von Autenried, Alex Kubecka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tbjag/cs546_image_proj/issues"
+  },
+  "homepage": "https://github.com/tbjag/cs546_image_proj#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongodb": "^3.3.3"
+  }
+}
