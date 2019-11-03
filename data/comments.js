@@ -9,7 +9,7 @@ module.exports = {
 
         return comment;
     },
-
+    //gets comment by ID
     async getCommentById(id){
         if(id == undefined) throw new Error("ID is undefined.");
         if(typeof id != "object" && typeof id !="string") throw new Error("ID must be string.");
@@ -25,7 +25,7 @@ module.exports = {
         if(comment===null) throw new Error("Can't find comment with that ID.");
         return comment;
     },
-
+    //adds comment with content and author ID 
     async addComment(content, authorId){
         if(content==undefined) throw new Error("Content is undefined.");
         if(authorId==undefined) throw new Error("AuthorId is undefined.");
@@ -48,7 +48,7 @@ module.exports = {
         const newId = insert.insertedId;
         return await this.getCommentById(newId);
     },
-
+    //removes comment by ID
     async removeComment(id) {
         if(id==undefined) throw new Error("ID is undefined");
         if(typeof id != "object" && typeof id !="string") throw new Error("ID must be string.");
