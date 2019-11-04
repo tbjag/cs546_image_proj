@@ -1,0 +1,63 @@
+body {
+  font-size: 14pt;
+}
+
+.is-prime{
+    color: #00E676;
+}
+
+.not-prime{
+    color: #FF3D00;
+
+}
+
+
+.head{
+  grid-area: header;
+  font-family: 'Open Sans', 'Raleway', sans-serif;
+  font-style: italic;
+  text-decoration-color: blue;
+}
+
+.check{
+  grid-area: sidebar;
+  font-family: 'Open Sans', 'Helvetica', sans-serif;
+  font-style: normal;
+}
+
+.attempt{
+  grid-area: main;
+  font-family: 'Open Sans', 'Helvetica', sans-serif;
+  font-style: normal;
+}
+
+.error{
+  grid-area: footside;
+  font-family: 'Zapf-Chancery', cursive;
+  font-style: italic;
+  color: #ff6347;
+}
+
+.footer{
+  grid-area: footer;
+  font-family: 'Open Sans', 'Helvetica', sans-serif;
+  font-style: normal;
+  color: #ff6347;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas: 
+      'header header sidebar main main'
+      'footside footside footer footer footer';;
+  grid-gap: 10px;
+  background-color: #FFFF00;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
