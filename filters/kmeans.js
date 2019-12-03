@@ -123,9 +123,145 @@ async function kmeans(img, k, output) {
 
 }
 
+async function greyscale(img, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.greyscale();
+    image.write(output);
+ 
+}
+
+async function invert(img, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.invert();
+    image.write(output);
+ 
+}
+
+async function blur(img, r, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.blur(r);
+    image.write(output);
+ 
+}
+
+async function dither(img, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.dither565();
+    image.write(output);
+ 
+}
+
+async function sepia(img, output)
+{
+	// Makes image appear vintage and romantic
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.sepia();
+    image.write(output);
+ 
+}
+
+async function posterize(img, r, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.posterize(r);
+    image.write(output);
+ 
+}
+
+async function normalize(img, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.normalize();
+    image.write(output);
+ 
+}
+
+async function opaque(img, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.opaque();
+    image.write(output);
+ 
+}
+
+async function remBlue(img, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.scan(0,0, width, height, function(x,y,idx) {
+    this.bitmap.data[idx + 2] = 0;
+        //console.log(arr)
+    })
+ 
+    image.write(output);
+ 
+}
+
+async function remRed(img, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.scan(0,0, width, height, function(x,y,idx) {
+    this.bitmap.data[idx + 0] = 0;
+        //console.log(arr)
+    })
+ 
+    image.write(output);
+ 
+}
+
+async function remGreen(img, output)
+{
+    var image = await jimp.read(img)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+    image.scan(0,0, width, height, function(x,y,idx) {
+    this.bitmap.data[idx + 1] = 0;
+        //console.log(arr)
+    })
+ 
+    image.write(output);
+ 
+}
+
 async function main()
 {
-    var test = await kmeans("panda.png",10, "kpanda.png")
+    //var test = await kmeans("waterfallsunset.png",15, "kwaterfallsunset.png")
+    //var test2 = await greyscale("waterfallsunset.png","greywaterfallsunset.png") 
+    //var test3 = await invert("waterfallsunset.png","invertwaterfallsunset.png")
+    //var test4 = await blur("waterfallsunset.png",20,"blurwaterfallsunset.png") 
+    //var test5 = await dither("waterfallsunset.png","ditherwaterfallsunset.png")
+    //var test6 = await sepia("waterfallsunset.png","sepiawaterfallsunset.png") 
+    //var test7 = await posterize("waterfallsunset.png",4,"posterizewaterfallsunset.png")
+	//var test8 = await normalize("waterfallsunset.png","normalwaterfallsunset.png")
+	//var test9 = await opaque("waterfallsunset.png","opaquewaterfallsunset.png")
+	//var test10 = await remBlue("waterfallsunset.png","bluelesswaterfallsunset.png")
+	//var test11 = await remRed("waterfallsunset.png","redlesswaterfallsunset.png")
+	//var test12 = await remGreen("waterfallsunset.png","greenlesswaterfallsunset.png")
+	var test13 = await posterize("waterfallsunset.png",15,"posterize3waterfallsunset.png")
+	
 }
 
 main()
