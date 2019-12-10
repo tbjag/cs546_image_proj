@@ -25,14 +25,46 @@
 {{else}}
 <form id="login-form" method="POST" action="/login">
 	<div class="login-form">
-		<label for="username">Username</label>
-		<input type="text" class="form-input" id="username" name="username" placeholder="Enter username"><br>
+		<label for="email">Email</label>
+		<input type="text" class="form-input" id="email" name="email" placeholder="Enter email"><br>
 		<label for="password">Password</label>
 		<input type="password" class="form-input" id="password" name="password" placeholder="Enter password"><br>
 
 		<div class="form-group">
 		    <button type="submit" class="btn">login</button>
 		</div>
+		{{#unless status}}
+            <p>{{message}}</p>
+        {{/unless}}
+	</div>
+</form>
+<form id="registration-form" method="POST" action="/register">
+	<div class="registration-form">
+		<label for="firstname">First Name</label>
+		<input type="text" class="form-input" id="firstname" name="firstname" placeholder="Enter first name"><br>
+		<label for="lastname">Last Name</label>
+		<input type="text" class="form-input" id="lastname" name="lastname" placeholder="Enter last name"><br>
+		<label for="age">Age</label>
+		<input type="number" class="form-input" id="age" name="age" placeholder="Enter last age"><br>
+		
+		<label for="email">Email</label>
+		<input type="text" class="form-input" id="email" name="email" placeholder="Enter email"><br>
+		<label for="password">Password</label>
+		<input type="password" class="form-input" id="password" name="password" placeholder="Enter password"><br>
+
+		<label for="gender">Gender</label>
+		<input type="text" class="form-input" id="gender" name="gender" placeholder="Enter gender"><br>
+		<label for="city">City</label>
+		<input type="text" class="form-input" id="city" name="city" placeholder="Enter city"><br>
+		<label for="state">State</label>
+		<input type="text" class="form-input" id="state" name="state" placeholder="Enter state"><br>
+
+		<div class="form-group">
+		    <button type="submit" class="btn">register</button>
+		</div>
+		{{#unless status}}
+            <p>{{message}}</p>
+        {{/unless}}
 	</div>
 </form>
 {{/if}}

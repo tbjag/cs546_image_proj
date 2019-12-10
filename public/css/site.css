@@ -29,6 +29,16 @@ body {
   padding: 16px;
 }
 
+.login-form{
+  float: left;
+  width: 50%;
+}
+
+.registration-form{
+ float: left;
+  width: 50%; 
+}
+
 /* The sticky class is added to the header with JS when it reaches its scroll position */
 .sticky {
   position: fixed;
