@@ -23,30 +23,32 @@ module.exports = {
         email: email,
         gender: gender,
         city: city,
-        state: state
+        state: state,
+        age: age,
+        hashedPassword: hashedPassword,
+        imageTag: []
       };
   
       const insertInfo = await data.insertOne(obj);
-      if (insertInfo.insertedCount === 0) throw new Error("Could not add animal.");
+      if (insertInfo.insertedCount === 0) throw new Error("Could not add new user.");
       const newId = insertInfo.insertedId;
-      const animal = await this.get(newId);
-      return animal;
+      const user = await this.get(newId);
+      return user;
     },
   
     async getAll(){
-      const animalCollection = await animals();
+      const userCollection = await users();
   
-      const animal = await animalCollection.find({}).toArray();
+      const user = await userCollection.find({}).toArray();
   
-      return animal;
+      return user;
     },
   
     async get(id){
       if(id == undefined) throw new Error("ID is undefined.");
       if(typeof id != "object" && typeof id !="string") throw new Error("ID must be string.");
-      //var mongoose = require('./node_modules/mongoose');
-      
-      var ObjectID = require('mongodb').ObjectID;//Found this conversion at https://stackoverflow.com/questions/7825700/convert-string-to-objectid-in-mongodb
+
+      var ObjectID = require('mongodb').ObjectID;
       if(ObjectID.isValid(id)){
         id = new ObjectID(id); // wrap in ObjectID
       }else{
@@ -54,7 +56,7 @@ module.exports = {
       }
   
       //console.log(typeof id);
-      const data = await animals();
+      const data = await users();
       const str = await data.findOne({_id: id })
       if(str===null) throw new Error("Can't find ID");
       return str;
