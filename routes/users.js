@@ -14,9 +14,9 @@ router.get("/", (req,res) =>{
     if(req.session.user && req.cookies.name ==='AuthCookie') {
         res.redirect("/private");
     }else{
-        res.render("users/login", { title: "Login"});
-        let str = new Date().toUTCString() + " " +req.method + " " + req.originalUrl + " " + "(Non-Authenticated User)";
-        console.log(str);
+        res.render("users/login", { /*idk what to put here */ });
+        //let str = new Date().toUTCString() + " " +req.method + " " + req.originalUrl + " " + "(Non-Authenticated User)";
+        //console.log(str);
     }
 });
 
