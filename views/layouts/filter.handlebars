@@ -1,6 +1,18 @@
 <div class="header" id="myHeader">
-  <h2>My Header</h2>
+  <div class="home">
+  	<h2><a href = "">Home</a></h2>
+  </div>
+  <div class="filter">
+  	<h2><a href = "">Filters</a></h2>
+  </div>
+  <div class="login">
+  	{{#if logged}}
+  		<h2><a href = "">{{username}}</a></h2>
+    {{else}}
+    	<h2><a href = "">Log in</a></h2>
+  	{{/if}}
+  </div>
 </div>
-<div class="filter">
+<div class="content">
     <p>filter page baby! -- honestly can change filter options in public/js and then send formulated req to server</p>
 </div>

@@ -9,6 +9,18 @@ body {
   color: #f1f1f1;
 }
 
+.home{
+  display:inline-block;
+}
+
+.filters{
+  display:inline-block;
+}
+
+.login{
+  display:inline-block;
+}
+
 /* Page content */
 .content {
   padding: 16px;

@@ -1,19 +1,20 @@
 <div class="header" id="myHeader">
-  <h2>My Header</h2>
-</div>
-<div>
+  <div class="home">
+    <h2><a href = "">Home</a></h2>
+  </div>
+  <div class="filter">
+    <h2><a href = "">Filters</a></h2>
+  </div>
+  <div class="login">
     {{#if logged}}
-    <div id="login-user">
-        <p>user is logged in, put buttons here</p>
-    </div>
+        <h2><a href = "">{{username}}</a></h2>
     {{else}}
-    <div id="first-time-user">
-        <p>user is not logged in, place login button</p>
-    </div>
+        <h2><a href = "">Log in</a></h2>
     {{/if}}
-    <div class="feed">
+  </div>
+</div>
+<div class="content">
         <p>feed1...</p>
         <p>feed2...</p>
         <p>here would be handlebars display links</p>
-    </div>
 </div>
