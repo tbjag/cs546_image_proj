@@ -4,6 +4,11 @@
     think of google account login.
     profile info should be name, age, username etc. 
 */
+const express = require("express");
+const router = express.Router();
+const data = require("../data");
+const usersData = data.users;
+const commentsData = data.comments;
 
 router.get("/", (req,res) =>{
     if(req.session.user && req.cookies.name ==='AuthCookie') {
@@ -16,6 +21,8 @@ router.get("/", (req,res) =>{
 });
 
 router.post("/create", async (req, res) =>{
+    const accounts = await usersData.get(req.params.id);
+    res.json(animal);
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
     let email = req.body.email;
@@ -31,14 +38,14 @@ router.post("/create", async (req, res) =>{
         emailExists = false;
         //CHECK HERE
         if(emailExists){
-            res.status(401).render("users/login", {message: "Email already in use."});
+            res.status(401).render("layouts/profile", {message: "Email already in use."});
         }else{
             //ADD PROFILE TO THE DATABASE
-            res.render("users/login", {message: "You have successfully created a profile."});
+            res.render("layouts/profile", {message: "You have successfully created a profile."});
         }
 
         //Bcrypt and store the password here
-        
+
         
     }
 
