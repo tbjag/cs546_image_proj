@@ -33,10 +33,13 @@ router.post("/create", async (req, res) =>{
     let password = req.body.password;
 
     if(firstName&&lastName&&email&&gender&&city&&state&&age&&password){
-
+        try{
+            const newUser = await usersData.create(firstName, lastName, email, gender, city, state, age, hashedPassword);
+        }
         //CHECK IN MONGO DB IF EMAIL ALREADY EXISTS OR NAH
         emailExists = false;
         //CHECK HERE
+
         if(emailExists){
             res.status(401).render("layouts/profile", {message: "Email already in use."});
         }else{

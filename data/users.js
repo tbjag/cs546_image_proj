@@ -12,6 +12,7 @@ module.exports = {
       if (typeof email !== "string") throw new Error("email needs to be a string.");
       if (typeof gender !== "string") throw new Error("gender needs to be a string.");
       if (typeof state !== "string") throw new Error("state needs to be a string.");
+      if (typeof city !== "string") throw new Error("City needs to be a string.");
       if (typeof age !== "number") throw new Error("Age needs to be an integer.");
       if (typeof hashedPassword !== "string") throw new Error("hashedPassword needs to be a string.");
   
