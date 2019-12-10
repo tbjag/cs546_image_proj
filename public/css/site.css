@@ -10,15 +10,18 @@ body {
 }
 
 .home{
-  display:inline-block;
+  float: left;
+  width: 33%;
 }
 
 .filters{
-  display:inline-block;
+  float: left;
+  width: 33%;
 }
 
 .login{
-  display:inline-block;
+  float: left;
+  width: 33%;
 }
 
 /* Page content */

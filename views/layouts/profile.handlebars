@@ -1,15 +1,15 @@
 <div class="header" id="myHeader">
   <div class="home">
-  	<h2><a href = "">Home</a></h2>
+  	<h2><a href = '/home'>Home</a></h2>
   </div>
   <div class="filter">
-  	<h2><a href = "">Filters</a></h2>
+  	<h2><a href = '/fitlers'>Filters</a></h2>
   </div>
   <div class="login">
   	{{#if logged}}
-  		<h2><a href = "">{{username}}</a></h2>
+  		<h2><a href = '/login'>{{username}}</a></h2>
     {{else}}
-    	<h2><a href = "">Log in</a></h2>
+    	<h2><a href = '/login'>Log in</a></h2>
   	{{/if}}
   </div>
 </div>
@@ -23,6 +23,16 @@
     </div>
 </div>
 {{else}}
-<div class="login-form">
-</div>
+<form id="login-form" method="POST" action="/login">
+	<div class="login-form">
+		<label for="username">Username</label>
+		<input type="text" class="form-input" id="username" name="username" placeholder="Enter username"><br>
+		<label for="password">Password</label>
+		<input type="password" class="form-input" id="password" name="password" placeholder="Enter password"><br>
+
+		<div class="form-group">
+		    <button type="submit" class="btn">login</button>
+		</div>
+	</div>
+</form>
 {{/if}}
