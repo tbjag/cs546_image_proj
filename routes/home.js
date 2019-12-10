@@ -5,17 +5,17 @@
     should have feed of links that of images that users post??? if too hard then we can talk about something else
 */
 const express = require("express");
-const data = require(""); // <- for image stream, and user auth don't implement yet
+//const data = require(""); // <- for image stream, and user auth don't implement yet
 const router = express.Router();
 
 //should only be this .get
 router.get("/", (req,res) =>{
     if(req.session.user){
         //display user info -- might need to double check security on this one
-        let tString = "Welcome " + "--username--";
+        let tString = "Welcome " + req.session.username;
         res.render("layouts/home", {title: tString, logged: true})
     }else{
-        res.render("layouts/home", {title: "", logged: false})
+        res.render("layouts/home", {title: "Welcome to PsLite", logged: false})
     }
     return;
 });
