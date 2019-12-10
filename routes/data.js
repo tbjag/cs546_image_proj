@@ -1,4 +1,4 @@
 /* 
-    DESCRIPTION: all database functions and interaction only place where we use mongodb ../data/..
+    DESCRIPTION: get feed based on date
     stores: images, user profiles, comments on images.
 */
