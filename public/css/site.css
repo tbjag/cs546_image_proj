@@ -4,7 +4,6 @@ body {
 
 /* Style the header */
 .header {
-  grid-area: header;
   padding: 10px 16px;
   background: #555;
   color: #f1f1f1;
@@ -12,7 +11,6 @@ body {
 
 /* Page content */
 .content {
-  grid-area: content;
   padding: 16px;
 }
 
@@ -26,20 +24,4 @@ body {
 /* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
 .sticky + .content {
   padding-top: 102px;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-areas: 
-      'header'
-      'content';;
-  grid-gap: 10px;
-  background-color: #FFFF00;
-  padding: 10px;
-}
-
-.grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px 0;
-  font-size: 30px;
 }
