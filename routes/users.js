@@ -9,6 +9,7 @@ const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
 const commentsData = data.comments;
+const bcrypt = require('bcrypt');
 
 router.get("/", (req,res) =>{
     if(req.session.user && req.cookies.name ==='AuthCookie') {
@@ -33,14 +34,18 @@ router.post("/create", async (req, res) =>{
     let password = req.body.password;
 
     if(firstName&&lastName&&email&&gender&&city&&state&&age&&password){
-
+        let hashedPassword = bcrypt.hash(password, 10);
         //CHECK IN MONGO DB IF EMAIL ALREADY EXISTS OR NAH
-        emailExists = false;
-        //CHECK HERE
-        if(emailExists){
+        if(emailExists){//NEED TO DO THIS SOMEHOW
             res.status(401).render("layouts/profile", {message: "Email already in use."});
         }else{
-            //ADD PROFILE TO THE DATABASE
+            //add profile to database
+            try{
+                const newUser = await usersData.create(firstName, lastName, email, gender, city, state, age, hashedPassword);
+                res.status(200).send(newUser);
+            }catch(e){
+                res.sendStatus(500);
+            }
             res.render("layouts/profile", {message: "You have successfully created a profile."});
         }
 
