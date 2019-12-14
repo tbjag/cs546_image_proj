@@ -5,7 +5,7 @@ const comments = require("./comments");
 
 
 //Put into image database
-async function addComment(content, authorId){
+async function addComment(content, authorId, imgId){
     if(content==undefined) throw new Error("Content is undefined.");
     if(authorId==undefined) throw new Error("AuthorId is undefined.");
     if(typeof content!="string") throw new Error("Content is not string.");
@@ -16,12 +16,9 @@ async function addComment(content, authorId){
     let newComment = {
         time: Date.getTime(),
         content: content,
-        author:{
-            id: authorId,
-            name: commenter.name
-        } 
+        author:commenter.name
     };
-    const commentCollection = await comments();
+    const image = await image();
 
     const insert = await commentCollection.insertOne(newComment);
     const newId = insert.insertedId;
