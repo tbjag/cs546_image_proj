@@ -15,3 +15,20 @@ function myFunction() {
     header.classList.remove("sticky");
   }
 }
+
+function checkRegister(){
+  firstN = document.getElementById("firstname").value;
+  lastN = document.getElementById("lastname").value;
+  age = document.getElementById("age").value;
+  if(age<0){
+    alert("please enter correct age");
+  }
+  email = document.getElementById("registeremail").value;
+  gender = document.getElementById("registerpassword").value;
+  city = document.getElementById("city").value;
+  state = document.getElementById("state").value;
+  console.log(firstN + lastN);
+  alert("HIII");
+}
+
+//document.getElementById("register-button").addEventListener();
