@@ -47,6 +47,7 @@ router.post('/', upload.single('image'), async (req, res) => {
   var img = fs.readFileSync(req.file.path);
   var encode_image = img.toString('base64');
   // Define a JSONobject for the image attributes for saving to database
+
   var finalImg = {
   contentType: req.file.mimetype,
   image:  new Buffer(encode_image, 'base64')
@@ -54,6 +55,9 @@ router.post('/', upload.single('image'), async (req, res) => {
   const data = await images();
   const insertInfo = await data.insertOne(finalImg);
   //console.log(result);
+  //const userData = await users();
+  //const user = await userData.get(req.session.userId);
+
 
 
   //if (err) return console.log(err);
