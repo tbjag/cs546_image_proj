@@ -80,10 +80,10 @@ module.exports = {
       const user = await this.get(id);
       console.log(img);
       console.log(user);
-      let imgArray = {
+      /*let imgArray = {
         id: id,
         name: name
-      }
+      }*/
       let arr = user.imageTag.push(img);
       await userCollection.updateOne(
         {_id: id},
@@ -149,7 +149,7 @@ module.exports = {
       return str;
     },
     async get(id){
-      //console.log(id);
+      console.log("Got to get ID");
       var check = {};
       if(id == undefined) throw new Error("ID is undefined.");
       if(typeof id != "object" && typeof id !="string") throw new Error("ID must be string.");
