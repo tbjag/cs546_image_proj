@@ -76,11 +76,29 @@
 		<input type="text" class="form-input" id="state" name="state" placeholder="Enter state"><br>
 
 		<div class="form-group">
-		    <button type="submit" class="btn">Register</button>
+		    <button id = "register-button" type="submit" class="btn" onclick="checkRegister()">Register</button>
 		</div>
 		{{#unless registerstatus}}
             <p class = "error">{{registermessage}}</p>
         {{/unless}}
 	</div>
 </form>
+<script>
+	function checkRegister(){
+		firstN = document.getElementById("firstname").value;
+		lastN = document.getElementById("lastname").value;
+		age = document.getElementById("age").value;
+		email = document.getElementById("registeremail").value;
+		gender = document.getElementById("registerpassword").value;
+		city = document.getElementById("city").value;
+		state = document.getElementById("state").value;
+		console.log(firstN + lastN);
+		alert("HIII");
+	}
+
+	//document.getElementById("register-button").addEventListener();
+
+
+</script>
+
 {{/if}}
