@@ -23,7 +23,12 @@
 </div>
 <div class="content">
         <p class = "welcome">Welcome to PSLite!</p>
-        <p>feed1...</p>
-        <p>feed2...</p>
-        <p>here would be handlebars display links</p>
+        {{#each imgarray}}
+            {{#if logged}}
+                <p><a href = "/image/"+{{id}}>{{imgarray}}</a></p>
+            {{else}}
+                <p>{{imgarray}}</p>
+                <p>You must be logged in to view these images</p>
+            {{/if}}
+        {{#each}}
 </div>
