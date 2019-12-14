@@ -5,7 +5,6 @@ const users = mongoCollections.users;
 //^add to seed script later
 async function runSetup() {
     const userCollection = await users;
-  
     try {
       // We can recover from this; if it can't drop the collection, it's because
       await userCollection.drop();

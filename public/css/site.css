@@ -11,7 +11,7 @@ body {
   font-family: "Arial", serif;
 }
 
-#spacer{
+.spacer{
   flex: 1;
 }
 
