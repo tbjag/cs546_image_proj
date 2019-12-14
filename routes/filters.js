@@ -19,6 +19,7 @@ const jimp = require('jimp');
 const mongoCollections = require("../data/collections");
 const users = mongoCollections.users;
 const images = mongoCollections.images;
+const xss = require('xss');
 
 router.post("/kmeans", async function (req,res){
     console.log("kmeansFILTER");
@@ -26,7 +27,7 @@ router.post("/kmeans", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         const k = Number(req.body.k)
         console.log(inName)
         console.log(outName)
@@ -93,7 +94,7 @@ router.post("/greyscale", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
@@ -159,7 +160,7 @@ router.post("/invert", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
@@ -225,7 +226,7 @@ router.post("/sepia", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         const k = req.body.k
         console.log(inName)
         console.log(outName)
@@ -292,7 +293,7 @@ router.post("/remBlue", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
@@ -358,7 +359,7 @@ router.post("/remRed", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
@@ -424,7 +425,7 @@ router.post("/remGreen", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
@@ -490,7 +491,7 @@ router.post("/blur", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         const k = Number(req.body.k)
         console.log(inName)
         console.log(outName)
@@ -558,7 +559,7 @@ router.post("/posterize", async function (req,res){
     try{
       if(req.session.userId){
         const inName = req.body.filename
-        const outName = req.body.outputName
+        const outName = xss(req.body.outputName)
         const k = Number(req.body.k)
         console.log(inName)
         console.log(outName)
