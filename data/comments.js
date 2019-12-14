@@ -1,6 +1,6 @@
 const mongoCollections = require("./collections");
 const comments = mongoCollections.comments;
-const users = require("/users");
+const users = require("./users");
 
 
 module.exports = {
