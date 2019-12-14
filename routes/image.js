@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
+const imageData = data.images;
 const commentData = data.comments;
 const mongoCollections = require("../data/collections");
 const users = mongoCollections.users;
@@ -54,7 +55,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 
   var finalImg = {
   contentType: req.file.mimetype,
-  image:  new Buffer(encode_image, 'base64')
+  image:  new Buffer.from(encode_image, 'base64')
   };
   const data = await images();
   const insertInfo = await data.insertOne(finalImg);
@@ -63,12 +64,14 @@ router.post('/', upload.single('image'), async (req, res) => {
   const dude = await usersData.get(req.session.userId);
   await usersData.addImageTag(finalImg._id, dude._id);
 
-
-
+  //const pics = await imageData.getAll();
+  //var imag = new Image(100,200);
+  //imag.src = finalImg.image;
   //if (err) return console.log(err);
     //maybe redirect somewhere else??
   console.log('saved to database');
-  res.redirect('/');
+  console.log(finalImg.image);
+  res.render('layouts/upload', {pics: finalImg.image, title: "Files", logged:true, username: dude.firstName});
 });
 
 router.get("/all", async function (req,res){
