@@ -18,7 +18,8 @@ var storage = multer.diskStorage({
     cb(null, './public/images');
   },
   filename: function (req, file, cb) {
-    console.log(file.fieldname);
+    console.log("WE ARE HERE");
+    console.log(req.file);
     cb(null, file.fieldname +  path.extname(file.originalname));
   }
 });
@@ -63,7 +64,7 @@ router.post('/', upload.single('image'), async (req, res) => {
   
   //console.log("ID: "+finalImg._id);
   const dude = await usersData.get(req.session.userId);
-  await usersData.addImageTag(finalImg._id, dude._id);
+  await usersData.addImageTag(finalImg, dude._id, "image.jpg");
 
   //const pics = await imageData.getAll();
   //var imag = new Image(100,200);

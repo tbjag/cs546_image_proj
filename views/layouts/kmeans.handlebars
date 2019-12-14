@@ -25,12 +25,19 @@
 	{{#if logged}}
     <p>KMeans</p>
     <form method="POST" id="myForm" action="/filters/kmeans">
-        <input type="text" name="inputName">
-        <input type="text" name="outputName">
-        <input type="number" name="k">
+        <label for="inputName">Input Name</label>
+        <select id="filename" name="filename">
+        {{#each imgArray}}
+          <option value = {{name}}>{{name}}</option>
+        {{/each}}
+        </select><br>
+        <label for="outputName">Output Name</label>
+        <input type="text" class="form-input" id= "outputName" name="outputName" placeholder="Enter output name"><br>
+        <label for="k">K value</label>
+        <input type="number" class="form-input" id = "k" name="k" placeholder="Enter K value"><br>
         <input type="submit" value="submit">
     </form>
-    {{else}}
+  {{else}}
     <p>Please log in to use our filters!</p>
-    {{/if}}
+  {{/if}}
 </div>
