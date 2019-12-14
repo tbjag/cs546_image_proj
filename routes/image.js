@@ -56,8 +56,9 @@ router.post('/', upload.single('image'), async (req, res) => {
   // Define a JSONobject for the image attributes for saving to database
 
   var finalImg = {
-  contentType: req.file.mimetype,
-  image:  new Buffer.from(encode_image, 'base64')
+    contentType: req.file.mimetype,
+    image:  new Buffer.from(encode_image, 'base64'),
+    description: req.body.description //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
   };
   const data = await images();
   const insertInfo = await data.insertOne(finalImg);
