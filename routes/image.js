@@ -67,6 +67,9 @@ router.post('/', upload.single('image'), async (req, res) => {
   res.redirect('/');
 });
 
+router.get("/all", async function (req,res){
+
+});
 
   
 
