@@ -66,9 +66,9 @@ router.post("/kmeans", async function (req,res){
 			var fileName = outName;
 			console.log(req.session.userId);
 			const dude = await usersData.get(req.session.userId);
-			await usersData.addImageTag(finalImg, dude._id, fileName);			
-
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      await usersData.addImageTag(finalImg, dude._id, fileName);			
+      let arr = await imageData.getAll();
+            res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -133,7 +133,8 @@ router.post("/greyscale", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -198,7 +199,8 @@ router.post("/invert", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -264,7 +266,8 @@ router.post("/sepia", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -329,7 +332,8 @@ router.post("/remBlue", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -394,7 +398,8 @@ router.post("/remRed", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -459,7 +464,8 @@ router.post("/remGreen", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -526,7 +532,8 @@ router.post("/blur", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -593,7 +600,8 @@ router.post("/posterize", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-            res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{

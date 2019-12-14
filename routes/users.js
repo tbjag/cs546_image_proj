@@ -9,6 +9,7 @@ const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
 const commentsData = data.comments;
+const imageData = data.images;
 
 router.get("/", async function (req,res){
   if(!req.session.userId){
@@ -66,7 +67,8 @@ router.post('/acct', async function (req, res, next) {
       }
       req.session.userId = newUser;
       //console.log(newUser);
-      res.render('layouts/home', {logged: true, username: userData.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: userData.firstName, imgarray: arr});
     }catch(e){
       console.log(e);
       res.sendStatus(500);
@@ -88,7 +90,8 @@ router.post('/acct', async function (req, res, next) {
       //console.log("dudeID: " + req.session.userId);
 
       if (checkLogin.status) {
-        res.render('layouts/home', {logged: true, username: dude.firstName});
+        let arr = await imageData.getAll();
+        res.render("layouts/home", {logged:true, username: dude.firstName, imgarray: arr});
         return;
       } else {
         res.render('layouts/profile', {loginstatus: false, loginmessage: checkLogin.message});
