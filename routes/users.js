@@ -10,6 +10,7 @@ const data = require("../data");
 const usersData = data.users;
 const commentsData = data.comments;
 const imageData = data.images;
+const xss = require("xss");
 
 router.get("/", async function (req,res){
   if(!req.session.userId){
@@ -39,24 +40,24 @@ router.get("/", async function (req,res){
 router.post('/acct', async function (req, res, next) {
     //console.log(req.body.email);
     //console.log(req.body.password);
-  if (req.body.email &&
-    req.body.password && //IDK WHY THIS PASSWORD DOESNT STAY
-    req.body.firstname &&
-    req.body.lastname &&
-    req.body.gender &&
-    req.body.state &&
-    req.body.city &&
-    req.body.age) {
+  if (xss(req.body.email) &&
+    xss(req.body.password) && //IDK WHY THIS PASSWORD DOESNT STAY
+    xss(req.body.firstname) &&
+    xss(req.body.lastname) &&
+    xss(req.body.gender) &&
+    xss(req.body.state) &&
+    xss(req.body.city) &&
+    xss(req.body.age)) {
 
     var userData = {
-      email: req.body.email,
-      password: req.body.password,
-      firstName: req.body.firstname,
-      lastName: req.body.lastname,
-      gender: req.body.gender,
-      state: req.body.state,
-      city: req.body.city,
-      age: req.body.age
+      email: xss(req.body.email),
+      password: xss(req.body.password),
+      firstName: xss(req.body.firstname),
+      lastName: xss(req.body.lastname),
+      gender: xss(req.body.gender),
+      state: xss(req.body.state),
+      city: xss(req.body.city),
+      age: xss(req.body.age)
     };
 
     try{
