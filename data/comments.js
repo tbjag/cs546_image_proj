@@ -28,7 +28,7 @@ module.exports = {
         return comment;
     },
     //adds comment with content and author ID 
-    async addComment(content, authorId){
+    async addComment(content, authorId, imageID){
         if(content==undefined) throw new Error("Content is undefined.");
         if(authorId==undefined) throw new Error("AuthorId is undefined.");
         if(typeof content!="string") throw new Error("Content is not string.");

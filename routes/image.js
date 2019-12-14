@@ -70,8 +70,8 @@ router.post('/', upload.single('image'), async (req, res) => {
   //if (err) return console.log(err);
     //maybe redirect somewhere else??
   console.log('saved to database');
-  console.log(finalImg.image);
-  res.render('layouts/upload', {pics: finalImg.image, title: "Files", logged:true, username: dude.firstName});
+  //console.log(finalImg.image);
+  res.render('layouts/upload', {pics: "image.js", title: "Files", logged:true, username: dude.firstName});
 });
 
 router.get("/all", async function (req,res){
@@ -83,7 +83,7 @@ router.get("/all", async function (req,res){
 router.post("/comment", async function (req,res){
   const comment = await comments();
   const commenter = await usersData.get(req.session.userId);
-  await commentData.addComment(req.body, commenter._id);
+  await commentData.addComment(req.body, commenter._id);//Need to get imageID here
   res.render('layouts/home', {comment: req.body, commenter: commenter.firstName+" "+commenter.lastName});
 });
 
