@@ -92,16 +92,53 @@ router.post("/greyscale", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
-        imgFilters.greyscale(inName, outName)
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.greyscale(filepath, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
+
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;
@@ -120,16 +157,53 @@ router.post("/invert", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
-        imgFilters.invert(inName, outName)
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+		        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.invert(filepath, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
+
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;
@@ -148,7 +222,7 @@ router.post("/sepia", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
         const k = req.body.k
         console.log(inName)
@@ -156,9 +230,46 @@ router.post("/sepia", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
-        imgFilters.sepia(inName, outName)
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.sepia(filepath, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
+
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;
@@ -177,16 +288,53 @@ router.post("/remBlue", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
-        imgFilters.remBlue(inName, outName)
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.remBlue(filepath, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
+
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;
@@ -205,16 +353,53 @@ router.post("/remRed", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
-        imgFilters.remRed(inName, outName)
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.remRed(filepath, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
+
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;
@@ -233,16 +418,53 @@ router.post("/remGreen", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
         console.log(inName)
         console.log(outName)
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
-        imgFilters.remGreen(inName, outName)
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.remGreen(filepath, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
+
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;
@@ -261,18 +483,55 @@ router.post("/blur", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
-        const k = req.body.k
+        const k = Number(req.body.k)
         console.log(inName)
         console.log(outName)
         console.log(k)
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
-        imgFilters.blur(inName, k, outName)
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.blur(filepath, k, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
+
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;
@@ -291,18 +550,55 @@ router.post("/posterize", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
-        const k = req.body.k
+        const k = Number(req.body.k)
         console.log(inName)
         console.log(outName)
         console.log(k)
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
-        imgFilters.posterize(inName, k, outName)
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.posterize(filepath, k, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
+
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;
