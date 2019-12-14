@@ -76,6 +76,14 @@ module.exports = {
       return user._id;
     },
 
+    async addImageTag(img, id){
+      const userCollection = await users();
+      const user = await userCollection.get(id);
+      userCollection.updateOne(
+        {"imageTag": user.imageTag},
+        {$set: {"imageTag":img}} );
+    },
+
     async checkLogin(user, pass){
       const userCollection = await users();
       var check = {};
