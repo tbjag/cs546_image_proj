@@ -51,9 +51,9 @@ router.post('/', upload.single('image'), async (req, res) => {
   contentType: req.file.mimetype,
   image:  new Buffer(encode_image, 'base64')
   };
-
-  const insertInfo = await images.insertOne(finalImg);
-  console.log(result);
+  const data = await images();
+  const insertInfo = await data.insertOne(finalImg);
+  //console.log(result);
 
 
   //if (err) return console.log(err);
