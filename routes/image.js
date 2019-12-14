@@ -11,6 +11,7 @@ const comments = mongoCollections.comments;
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const jimp = require('jimp');
 
 // SET STORAGE
 var storage = multer.diskStorage({
@@ -55,8 +56,13 @@ router.post('/', upload.single('image'), async (req, res) => {
     contentType: req.file.mimetype,
     image:  new Buffer.from(encode_image, 'base64'),
     name: req.body.name,
-    description: req.body.description //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+    description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+    filepath: "public/images/" + req.session.userId + req.body.name + ".jpg"
   };
+
+  var changeName = await jimp.read("image.jpg");
+  changeName.write(finalImg.filepath);
+
   const data = await images();
   const insertInfo = await data.insertOne(finalImg);
   
