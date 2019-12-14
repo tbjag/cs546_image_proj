@@ -41,15 +41,24 @@ router.get("/", async function (req,res){
 }
 });
 
-router.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
-  const file = req.file
-  if (!file) {
-    const error = new Error('Please upload a file');
-    error.httpStatusCode = 400;
-    return next(error);
-  }
-    res.send(file);
-  
+router.post('/', upload.single('image'), (req, res) => {
+  var img = fs.readFileSync(req.file.path);
+  var encode_image = img.toString('base64');
+  // Define a JSONobject for the image attributes for saving to database
+  var finalImg = {
+  contentType: req.file.mimetype,
+  image:  new Buffer(encode_image, 'base64')
+  };
+  await images.insertOne(finalImg, (err, result) => {
+  console.log(result)
+
+  if (err) return console.log(err);
+    //maybe redirect somewhere else??
+  console.log('saved to database');
+  res.redirect('/');
+
+
+  });
 });
 
 
