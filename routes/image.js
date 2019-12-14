@@ -18,9 +18,9 @@ var storage = multer.diskStorage({
     cb(null, './public/images');
   },
   filename: function (req, file, cb) {
-    console.log("WE ARE HERE");
-    console.log(req.file);
-    cb(null, file.fieldname +  path.extname(file.originalname));
+    console.log("HELLO");
+    console.log(req.body.name);
+    cb(null, req.body.name +  path.extname(file.originalname));
   }
 });
  
@@ -56,15 +56,18 @@ router.post('/', upload.single('image'), async (req, res) => {
   // Define a JSONobject for the image attributes for saving to database
 
   var finalImg = {
-  contentType: req.file.mimetype,
-  image:  new Buffer.from(encode_image, 'base64')
+    contentType: req.file.mimetype,
+    image:  new Buffer.from(encode_image, 'base64'),
+    name: req.body.name,
+    description: req.body.description //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
   };
   const data = await images();
   const insertInfo = await data.insertOne(finalImg);
   
   //console.log("ID: "+finalImg._id);
+  var fileName = req.body.name;
   const dude = await usersData.get(req.session.userId);
-  await usersData.addImageTag(finalImg, dude._id, "image.jpg");
+  await usersData.addImageTag(finalImg, dude._id, fileName);
 
   //const pics = await imageData.getAll();
   //var imag = new Image(100,200);
