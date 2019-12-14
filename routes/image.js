@@ -60,7 +60,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     filepath: "public/images/" + req.session.userId + req.body.name + ".jpg"
   };
 
-  var changeName = await jimp.read("image.jpg");
+  var changeName = await jimp.read("public/images/image.jpg");
   changeName.write(finalImg.filepath);
 
   const data = await images();
@@ -68,6 +68,7 @@ router.post('/', upload.single('image'), async (req, res) => {
   
   //console.log("ID: "+finalImg._id);
   var fileName = req.body.name;
+  console.log(req.session.userId);
   const dude = await usersData.get(req.session.userId);
   await usersData.addImageTag(finalImg, dude._id, fileName);
 
