@@ -32,7 +32,7 @@ router.get("/", async function (req,res){
   }
 }else{
   //const profile = await usersData.get(req.session.userId);
-  let imgarray = await imageData.getAll();
+  let arr = await imageData.getAll();
   res.render("layouts/home", {logged:false, imgarray: arr});
 }
 });
