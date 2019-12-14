@@ -84,10 +84,9 @@ module.exports = {
         id: id,
         name: name
       }*/
-      let arr = user.imageTag.push(img);
       await userCollection.updateOne(
         {_id: id},
-        {$set: {"imageTag": [arr]}} );
+        {$push: {imageTag: {name: name, imgId: img._id}}} );
       const user1 = await this.get(id);
       console.log(user1);
     },
