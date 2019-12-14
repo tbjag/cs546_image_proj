@@ -63,7 +63,8 @@ module.exports = {
         city: userData.city,
         state: userData.state,
         age: userData.age,
-        hashedPassword: hashedPassword
+        hashedPassword: hashedPassword,
+        imageTag: []
       };
       
       const insertInfo = await data.insertOne(obj);
@@ -74,11 +75,15 @@ module.exports = {
       return user._id;
     },
 
-    async addImageTag(img, id){
+    async addImageTag(img, id, name){
       const userCollection = await users();
       const user = await this.get(id);
       console.log(img);
       console.log(user);
+      let imgArray = {
+        id: id,
+        name: name
+      }
       let arr = user.imageTag.push(img);
       await userCollection.updateOne(
         {_id: id},
