@@ -68,7 +68,7 @@ router.post("/kmeans", async function (req,res){
 			const dude = await usersData.get(req.session.userId);
       await usersData.addImageTag(finalImg, dude._id, fileName);			
       let arr = await imageData.getAll();
-            res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+            res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -134,7 +134,7 @@ router.post("/greyscale", async function (req,res){
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -200,7 +200,7 @@ router.post("/invert", async function (req,res){
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -267,7 +267,7 @@ router.post("/sepia", async function (req,res){
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -333,7 +333,7 @@ router.post("/remBlue", async function (req,res){
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -399,7 +399,7 @@ router.post("/remRed", async function (req,res){
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -465,7 +465,7 @@ router.post("/remGreen", async function (req,res){
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -533,7 +533,7 @@ router.post("/blur", async function (req,res){
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
@@ -601,7 +601,7 @@ router.post("/posterize", async function (req,res){
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr, id: arr.id, name:arr.name});
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray: arr});
             return;
         }
         else{
