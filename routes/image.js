@@ -58,6 +58,7 @@ router.post('/', upload.single('image'), async (req, res) => {
   var finalImg = {
     contentType: req.file.mimetype,
     image:  new Buffer.from(encode_image, 'base64'),
+    name: req.body.name,
     description: req.body.description //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
   };
   const data = await images();
