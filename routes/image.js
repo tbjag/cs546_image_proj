@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
+const mongoCollections = require("../data/collections");
+const images = mongoCollections.images;
 const multer = require('multer');
 
 // SET STORAGE
