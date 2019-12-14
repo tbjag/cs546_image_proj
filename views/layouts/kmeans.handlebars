@@ -27,7 +27,7 @@
     <form method="POST" id="myForm" action="/filters/kmeans">
         <label for="inputName">Input Name</label>
         <select id="filename" name="filename">
-        {{#each imgArray}}
+        {{#each imageTag}}
           <option value = {{name}}>{{name}}</option>
         {{/each}}
         </select><br>

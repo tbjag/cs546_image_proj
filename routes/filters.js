@@ -19,7 +19,7 @@ router.post("/kmeans", async function (req,res){
     if(req.session.userId){
     try{
       if(req.session.userId){
-        const inName = req.body.inputName
+        const inName = req.body.filename
         const outName = req.body.outputName
         const k = Number(req.body.k)
         console.log(inName)
@@ -285,7 +285,7 @@ router.post("/filters", async function (req,res){
         console.log(filter)
         const profile = await usersData.get(req.session.userId);
         const rend = "layouts/" + filter
-        res.render(rend, {logged:true, username: profile.firstName});
+        res.render(rend, {logged:true, username: profile.firstName, imageTag: profile.imageTag});
         return;
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
