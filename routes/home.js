@@ -8,6 +8,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
+const imageData = data.images;
 
 //should only be this .get
 router.get("/", async function (req,res){
@@ -31,7 +32,7 @@ router.get("/", async function (req,res){
   }
 }else{
   //const profile = await usersData.get(req.session.userId);
-  let arr = [{id: "one id", name: "cat.jpg"}, {id: "two id", name: "dog.png"}]
+  let imgarray = await imageData.getAll();
   res.render("layouts/home", {logged:false, imgarray: arr});
 }
 });
