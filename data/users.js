@@ -78,10 +78,14 @@ module.exports = {
 
     async addImageTag(img, id){
       const userCollection = await users();
-      //const user = await userCollection.get(id);
+      const user = await this.get(id);
+      console.log(img);
+      console.log(user);
       await userCollection.updateOne(
-        {"_id": id},
-        {$set: {"imageTag":img}} );
+        {_id: id},
+        {$set: {"imageTag":[img, user.imageTag]}} );
+      const user1 = await this.get(id);
+      console.log(user1);
     },
 
     async checkLogin(user, pass){
