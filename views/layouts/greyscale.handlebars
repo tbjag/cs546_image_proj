@@ -23,11 +23,10 @@
 </div>
 <div class="content">
 	{{#if logged}}
-    <p>KMeans</p>
-    <form method="POST" id="myForm" action="/filters/kmeans">
+    <p>Greyscale</p>
+    <form method="POST" id="myForm" action="/filters/greyscale">
         <input type="text" name="inputName">
         <input type="text" name="outputName">
-        <input type="number" name="k">
         <input type="submit" value="submit">
     </form>
     {{else}}
