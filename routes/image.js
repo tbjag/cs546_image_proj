@@ -18,6 +18,7 @@ var storage = multer.diskStorage({
     cb(null, './public/images');
   },
   filename: function (req, file, cb) {
+    console.log(file.fieldname);
     cb(null, file.fieldname +  path.extname(file.originalname));
   }
 });
@@ -47,7 +48,7 @@ router.get("/", async function (req,res){
 }
 });
 
-router.post('/', upload.single('imAge'), async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   console.log("at image :post")
   var img = fs.readFileSync(req.file.path);
   var encode_image = img.toString('base64');
