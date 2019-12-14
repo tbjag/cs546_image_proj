@@ -5,6 +5,7 @@ const usersData = data.users;
 const mongoCollections = require("../data/collections");
 const images = mongoCollections.images;
 const multer = require('multer');
+const fs = require('fs');
 
 // SET STORAGE
 var storage = multer.diskStorage({
