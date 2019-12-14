@@ -51,20 +51,15 @@ router.post('/', upload.single('image'), async (req, res) => {
   contentType: req.file.mimetype,
   image:  new Buffer(encode_image, 'base64')
   };
-try{
-  await images.insertOne(finalImg, (err, result) => {
-  console.log(result)
 
-  if (err) return console.log(err);
+  const insertInfo = await images.insertOne(finalImg);
+  console.log(result);
+
+
+  //if (err) return console.log(err);
     //maybe redirect somewhere else??
   console.log('saved to database');
   res.redirect('/');
-  });
-}catch(e){
-  console.log(e);
-  res.sendStatus(500);
-}
-
 });
 
 
