@@ -31,7 +31,7 @@ router.get("/", async function (req,res){
   }
 }else{
   //const profile = await usersData.get(req.session.userId);
-  let arr = [{id: "one id", name: "cat.jpg"}, {id: "two id", name: "dog.png"}]
+  let arr = await imageData.getAll();
   res.render("layouts/home", {logged:false, imgarray: arr});
 }
 });
