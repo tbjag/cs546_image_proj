@@ -41,7 +41,7 @@ router.get("/", async function (req,res){
 }
 });
 
-router.post('/', upload.single('image'), (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   var img = fs.readFileSync(req.file.path);
   var encode_image = img.toString('base64');
   // Define a JSONobject for the image attributes for saving to database
@@ -49,6 +49,7 @@ router.post('/', upload.single('image'), (req, res) => {
   contentType: req.file.mimetype,
   image:  new Buffer(encode_image, 'base64')
   };
+try{
   await images.insertOne(finalImg, (err, result) => {
   console.log(result)
 
@@ -56,9 +57,12 @@ router.post('/', upload.single('image'), (req, res) => {
     //maybe redirect somewhere else??
   console.log('saved to database');
   res.redirect('/');
-
-
   });
+}catch(e){
+  console.log(e);
+  res.sendStatus(500);
+}
+
 });
 
 
