@@ -13,6 +13,12 @@ const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
 const imgFilters = data.filters;
+const imageData = data.images;
+const fs = require('fs');
+const jimp = require('jimp');
+const mongoCollections = require("../data/collections");
+const users = mongoCollections.users;
+const images = mongoCollections.images;
 
 router.post("/kmeans", async function (req,res){
     console.log("kmeansFILTER");
@@ -28,10 +34,46 @@ router.post("/kmeans", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         //actually run the filter here
-        imgFilters.kmeans(inName, k, outName)
+        // step 1 get the filepath for inName
+        // step 2 check uniqueness for outName
+        // step 3 run filter
+        // step 4 add out image to databases
+        console.log("Starting the steps")
+        const imgId = await usersData.getIdByName(inName, req.session.userId)
+        console.log("Image id is " + imgId)
+        const filepath = await imageData.getPath(imgId)
+        console.log("filepath is " + filepath)
+        const uniqueOut = await usersData.nameUnique(outName, req.session.userId);
+        if (uniqueOut)
+        {
+            const testOut = "public/images/" + req.session.userId + outName + ".jpg"
+            await imgFilters.kmeans(filepath, k, testOut)
+        
+			var img = jimp.read(testOut);
+			var encode_image = img.toString('base64');
+			// Define a JSONobject for the image attributes for saving to database
+			var finalImg = {
+				contentType: "img/jpg",
+				image:  new Buffer.from(encode_image, 'base64'),
+				name: outName,
+				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				filepath: testOut
+			};
+			const data = await images();
+			const insertInfo = await data.insertOne(finalImg);
+  
+			//console.log("ID: "+finalImg._id);
+			var fileName = outName;
+			console.log(req.session.userId);
+			const dude = await usersData.get(req.session.userId);
+			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
-        res.render("layouts/home", {logged:true, username: profile.firstName});
-        return;
+            res.render("layouts/home", {logged:true, username: profile.firstName});
+            return;
+        }
+        else{
+            console.log("this isn't good")
+          }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
         return;

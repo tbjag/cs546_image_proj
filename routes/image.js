@@ -13,6 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const jimp = require('jimp');
 
+
 // SET STORAGE
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {

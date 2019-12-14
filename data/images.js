@@ -51,15 +51,14 @@ async function get(id){
 }
 
 async function getPath(id){
-    /*if (typeof id !== "string") throw "You must provide an id to search for";
+    //if (typeof id !== "string") throw "You must provide an id to search for";
 
     const imageCollection = await images();
-    const objectId = ObjectId(id);*/
-    const imageCollection = await images();
+    console.log(id)
     const image = await imageCollection.findOne({ _id: id });
     if (image === null) throw "No image with that id";
 
-    return image.filePath;
+    return image.filepath;
 }
 
 async function getAll(){
