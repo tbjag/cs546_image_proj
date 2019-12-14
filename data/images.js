@@ -1,4 +1,4 @@
-/*const mongoCollections = require("./collections");
+const mongoCollections = require("./collections");
 const images = mongoCollections.images;
 const users = require("/users");
 const comments = require("/comments");
@@ -27,6 +27,34 @@ async function addComment(content, authorId){
     return await this.getCommentById(newId);
 }
 
+//Get image by ID
+async function get(id){
+    var check = {};
+    if(id == undefined) throw new Error("ID is undefined.");
+    if(typeof id != "object" && typeof id !="string") throw new Error("ID must be string.");
 
-module.exports = {addComment};
-*/
+    var ObjectID = require('mongodb').ObjectID;
+    if(ObjectID.isValid(id)){
+    id = new ObjectID(id); // wrap in ObjectID
+    }else{
+    throw new Error("ID is not a valid ObjectID");
+    }
+
+    const data = await images();
+    const str = await data.findOne({_id: id })
+    if(str===null){
+    check = {message:"Image does not exist", status: false};
+            return check;
+            };
+    return str;
+}
+
+async function getAll(){
+    const imageCollection = await images();
+
+    const img = await imageCollection.find({}).toArray();
+
+    return img;
+}
+
+module.exports = {addComment, get, getAll};
