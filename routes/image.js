@@ -92,7 +92,14 @@ router.post("/comment", async function (req,res){
 });
 
 router.get("/:id", async function (req,res){
-  res.redirect("/");
+  console.log("TESTe");
+  let arr = await imageData.get(req.params.id);
+  if(req.session.userId){
+    const dude = await usersData.get(req.session.userId);
+    res.render("layouts/image", {username:dude.firstName, logged: true, url: arr.filepath});
+  }else{
+    res.render("layouts/image", {logged: false, url: arr.filepath});
+  }
 });
 
 module.exports = router;
