@@ -1,44 +1,61 @@
 <div class="header" id="myHeader">
+  <span id = "spacer"></span>
   <div class="home">
-  	<h2><a href = '/home'>Home</a></h2>
+    <h2><a href = '/home/'>Home</a></h2>
   </div>
+  <span id = "spacer"></span>
   <div class="filter">
-  	<h2><a href = '/fitlers'>Filters</a></h2>
+    <h2><a href = '/filters/'>Filters</a></h2>
   </div>
+  <span id = "spacer"></span>
+  <div class = "Files">
+    <h2><a href = '/image/'>Files</a></h2>
+  </div>
+  <span id = "spacer"></span>
   <div class="login">
-  	{{#if logged}}
-  		<h2><a href = '/login'>{{username}}</a></h2>
+    {{#if logged}}
+        <h2><a href = '/profile/'>{{username}}</a></h2>
     {{else}}
-    	<h2><a href = '/login'>Log in</a></h2>
-  	{{/if}}
+        <h2><a href = '/profile/'>Log in</a></h2>
+    {{/if}}
   </div>
+  <span id = "spacer"></span>
 </div>
 {{#if logged}}
 <div class="user-profile">
-    <div class="box1">
-        <p>user profile</p>
-    </div>
-    <div class="box2">
-        <p>more handlebars stuff, must also give option to edit</p>
-    </div>
+	<p>{{welcomeTitle}}</p>
+    <p>First Name: {{firstname}}</p>
+    <p>Last Name: {{lastname}}</p>
+    <p>Age: {{age}}</p>
+    <p>Email: {{email}}</p>
+    <p>Password: *************</p>
+    <p>Gender: {{gender}}</p>
+    </p>City: {{city}}</p>
+    </p>State: {{state}}</p>
+
+	<form id = "logout-form" method="GET" action="/profile/logout">
+	    <button type="submit" class="btn">Logout</button>
+	</form>
 </div>
 {{else}}
-<form id="login-form" method="POST" action="/login">
+<p class = "form-header">Log in</p>
+<form id="login-form" method="POST" action="/profile/acct">
 	<div class="login-form">
 		<label for="email">Email</label>
-		<input type="text" class="form-input" id="email" name="email" placeholder="Enter email"><br>
+		<input type="text" class="form-input" id="email" name="logemail" placeholder="Enter email"><br>
 		<label for="password">Password</label>
-		<input type="password" class="form-input" id="password" name="password" placeholder="Enter password"><br>
+		<input type="password" class="form-input" id="password" name="logpassword" placeholder="Enter password"><br>
 
 		<div class="form-group">
-		    <button type="submit" class="btn">login</button>
+		    <button type="submit" class="btn">Login</button>
 		</div>
-		{{#unless status}}
-            <p>{{message}}</p>
+		{{#unless loginstatus}}
+            <p class = "error">{{loginmessage}}</p>
         {{/unless}}
 	</div>
 </form>
-<form id="registration-form" method="POST" action="/register">
+<p class = "form-header">Register</p>
+<form id="registration-form" method="POST" action="/profile/acct/">
 	<div class="registration-form">
 		<label for="firstname">First Name</label>
 		<input type="text" class="form-input" id="firstname" name="firstname" placeholder="Enter first name"><br>
@@ -60,10 +77,10 @@
 		<input type="text" class="form-input" id="state" name="state" placeholder="Enter state"><br>
 
 		<div class="form-group">
-		    <button type="submit" class="btn">register</button>
+		    <button type="submit" class="btn">Register</button>
 		</div>
-		{{#unless status}}
-            <p>{{message}}</p>
+		{{#unless registerstatus}}
+            <p class = "error">{{registermessage}}</p>
         {{/unless}}
 	</div>
 </form>

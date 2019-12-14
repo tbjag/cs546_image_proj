@@ -1,18 +1,30 @@
 <div class="header" id="myHeader">
+  <span id = "spacer"></span>
   <div class="home">
-  	<h2><a href = '/home'>Home</a></h2>
+    <h2><a href = '/home/'>Home</a></h2>
   </div>
+  <span id = "spacer"></span>
   <div class="filter">
-  	<h2><a href = '/filters'>Filters</a></h2>
+    <h2><a href = '/filters/'>Filters</a></h2>
   </div>
+  <span id = "spacer"></span>
+  <div class = "Files">
+    <h2><a href = '/image/'>Files</a></h2>
+  </div>
+  <span id = "spacer"></span>
   <div class="login">
-  	{{#if logged}}
-  		<h2><a href = '/login'>{{email}}</a></h2>
+    {{#if logged}}
+        <h2><a href = '/profile/'>{{username}}</a></h2>
     {{else}}
-    	<h2><a href = '/login'>Log in</a></h2>
-  	{{/if}}
+        <h2><a href = '/profile/'>Log in</a></h2>
+    {{/if}}
   </div>
+  <span id = "spacer"></span>
 </div>
 <div class="content">
+	{{#if logged}}
     <p>filter page baby! -- honestly can change filter options in public/js and then send formulated req to server</p>
+    {{else}}
+    <p>Please log in to use our filters!</p>
+    {{/if}}
 </div>

@@ -5,25 +5,34 @@
     should have feed of links that of images that users post??? if too hard then we can talk about something else
 */
 const express = require("express");
-//const data = require(""); // <- for image stream, and user auth don't implement yet
 const router = express.Router();
+const data = require("../data");
+const usersData = data.users;
 
 //should only be this .get
-router.get("/", (req,res) =>{
-    if(req.session.user){
-        //display user info -- might need to double check security on this one
-        let tString = "Welcome " + req.session.user;
-        res.render("layouts/home", {title: tString, logged: true})
+router.get("/", async function (req,res){
+  if(req.session.userId){
+  try{
+    if(req.session.userId){
+      console.log("here");
+      //kurt fill out
+      //var ObjectID = require('mongodb').ObjectID;
+      console.log("ID: " + req.session.userId);
+      const profile = await usersData.get(req.session.userId);
+      res.render("layouts/home", {logged:true, username: profile.firstName});
+      return;
     }else{
-        res.render("layouts/home", {title: "Welcome to PsLite", logged: false})
+      res.render("layouts/home", {title: "PSLite", logged:false});
+      return;
     }
-    return;
+  }catch(e){
+    console.log(e);
+    res.sendStatus(500);
+  }
+}else{
+  //const profile = await usersData.get(req.session.userId);
+  res.render("layouts/home", {logged:false});
+}
 });
 
 module.exports = router;
-
-
-function auth(){
-    //would use bcrypt to authenticate user while in route... 
-    //so that....
-}

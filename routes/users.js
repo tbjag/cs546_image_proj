@@ -9,120 +9,115 @@ const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
 const commentsData = data.comments;
-const bcrypt = require('bcrypt');
 
-router.get("/", (req,res) =>{
-    if(req.session.user && req.cookies.name ==='AuthCookie') {
-        res.redirect("/private");
+router.get("/", async function (req,res){
+  if(!req.session.userId){
+    console.log("No session");
+    res.render("layouts/profile", {logged:false, title:"Profile"});
+    return;
+  }else{
+  try{
+    if(req.session.userId){
+      //kurt fill out
+      //var ObjectID = require('mongodb').ObjectID;
+      const profile = await usersData.get(req.session.userId);
+      res.render("layouts/profile", {logged:true, username: profile.firstName, welcomeTitle: "Welcome "+profile.firstName, firstname: profile.firstName, lastname: profile.lastName, age: profile.age, email: profile.email, gender: profile.gender, city: profile.city, state: profile.state});
+      return;
     }else{
-        res.render("users/login", { /*idk what to put here */ });
-        //let str = new Date().toUTCString() + " " +req.method + " " + req.originalUrl + " " + "(Non-Authenticated User)";
-        //console.log(str);
+      res.render("layouts/profile", {title: "PSLite", logged:false});
+      return;
     }
-});
-
-router.post("/create", async (req, res) =>{
-    const accounts = await usersData.get(req.params.id);
-    res.json(animal);
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let email = req.body.email;
-    let gender = req.body.gender;
-    let city = req.body.city;
-    let state = req.body.state;
-    let age = req.body.age;
-    let password = req.body.password;
-
-    if(firstName&&lastName&&email&&gender&&city&&state&&age&&password){
-        let hashedPassword = bcrypt.hash(password, 10);
-        //CHECK IN MONGO DB IF EMAIL ALREADY EXISTS OR NAH
-        if(emailExists){//NEED TO DO THIS SOMEHOW
-            res.status(401).render("layouts/profile", {message: "Email already in use."});
-        }else{
-            //add profile to database
-            try{
-                const newUser = await usersData.create(firstName, lastName, email, gender, city, state, age, hashedPassword);
-                res.status(200).send(newUser);
-            }catch(e){
-                res.sendStatus(500);
-            }
-            res.render("layouts/profile", {message: "You have successfully created a profile."});
-        }
-
-        //Bcrypt and store the password here
-
-        
-    }
-
-});
-
-router.post("/login", async (req, res) =>{
-    let email = req.body.email;
-    let passW = req.body.password;
-
-    if(email && passW){
-        //Check email
-        eCheck = false;
-
-        //PROLLY WONT WORK, GOTTA CHECK MONGO DB INSTEAD
-        for (let person of users){
-            if(person.email === email){
-                eCheck = true;
-            }
-        }
-
-        //Check password
-        let pCheck = {};
-        for (let person of users){
-            if(person.username === userN){
-                if(await bcrypt.compare(passW, person.hashedPassword)){
-                    pCheck = {status: true, user: person};
-                }else{
-                    pCheck = {status: false, message: "Wrong password"};
-                }
-            }
-        }
-
-        if(uCheck && pCheck.status){
-            let {_id, username, firstName, lastName, Profession, Bio} = pCheck.user;
-            res.cookie("name", "AuthCookie");
-            let user = {_id, username, firstName, lastName, Profession, Bio};
-            req.session.user = user;
-            res.redirect("/private");
-        }else{
-            res.status(401).render("users/login", {title: "Login", message: "Wrong username or password", status: false});
-        }
-    } else{
-        res.render("users/login", {title: "Login", message: "You need to enter a username and password", status: false});
-    } 
-});
-
-
-const auth = function auth(req, res, next) {
-    let str = new Date().toUTCString() + " " +req.method + " " + req.originalUrl + " ";
-    if(req.session.user && req.cookies.name === 'AuthCookie'){
-        console.log(str + "(Authenticated User)");
-        next();
-    }else{
-        console.log(str + "(Non-Authenticated User)");
-        res.status(403).render("users/error", {title: "Error"});
-    }
+  }catch(e){
+    console.log(e);
+    res.sendStatus(500);
+  }
 }
+});
 
-router.get("/private", auth, (req, res) => {
-    let user = req.session.user;
-    if(user){
-        res.render("users/info",{id: user._id, username: user.username, first: user.firstName, last: user.lastName, prof: user.Profession, bio: user.Bio ,title: `Welcome ${user.firstName} ${user.lastName}`});
-    }else{
-        res.render("users/login", { title: "Login"});
+//POST route for updating data
+router.post('/acct', async function (req, res, next) {
+    //console.log(req.body.email);
+    //console.log(req.body.password);
+  if (req.body.email &&
+    req.body.password && //IDK WHY THIS PASSWORD DOESNT STAY
+    req.body.firstname &&
+    req.body.lastname &&
+    req.body.gender &&
+    req.body.state &&
+    req.body.city &&
+    req.body.age) {
+
+    var userData = {
+      email: req.body.email,
+      password: req.body.password,
+      firstName: req.body.firstname,
+      lastName: req.body.lastname,
+      gender: req.body.gender,
+      state: req.body.state,
+      city: req.body.city,
+      age: req.body.age
+    };
+
+    try{
+      const newUser = await usersData.create(userData);//Adds user data into the database
+      if(newUser.status == false){
+        res.render('layouts/profile', {registerstatus: false, registermessage: newUser.message});
+        return;
+      }
+      req.session.userId = newUser;
+      //console.log(newUser);
+      res.render('layouts/home', {logged: true, username: userData.firstName});
+    }catch(e){
+      console.log(e);
+      res.sendStatus(500);
     }
+  }else if (req.body.logemail && req.body.logpassword) {//If the user tried to login run this
+    //console.log("second if");
+    try{
+      const checkLogin = await usersData.checkLogin(req.body.logemail, req.body.logpassword);//Check Login needs to be tested
+      const dude = await usersData.getEmail(req.body.logemail);
+      if(dude.status == false){
+        res.render('layouts/profile', {loginstatus: false, loginmessage: dude.message});
+        return;
+      }
+      //console.log("???");
+      //var ObjectID = require('mongodb').ObjectID;
+      //const dudeID = await usersData.get(dude._id);
+
+      req.session.userId = dude._id;
+      //console.log("dudeID: " + req.session.userId);
+
+      if (checkLogin.status) {
+        res.render('layouts/home', {logged: true, username: dude.firstName});
+        return;
+      } else {
+        res.render('layouts/profile', {loginstatus: false, loginmessage: checkLogin.message});
+        return;
+      }                                
+    }catch(e){
+      console.log(e);
+      res.sendStatus(500);
+    }   //Reload page after login but user is now authenticated so it should go somewhere
+                                        //Maybe this should be render profile with the log thing but idk
+  } else {//User did not fill out all fields in login or register
+    res.render('layouts/profile', {loginstatus:false, registerstatus: false, registermessage: "Log in or Register", loginmessage:"Log in or Register"});
+    return;
+  }
 });
 
-router.get("/logout", (req,res) =>{
-    let str = new Date().toUTCString() + " " +req.method + " " + req.originalUrl + " " + "(Authenticated User)";
-    console.log(str);
-    res.clearCookie('name');
-    res.redirect("/");
+
+// GET for logout logout
+router.get('/logout', function (req, res, next) {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(function (err) {
+      if (err) {
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
 });
 
-module.exports = router, auth;
+module.exports = router;

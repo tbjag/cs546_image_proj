@@ -246,6 +246,15 @@ async function remGreen(img, output)
  
 }
 
+async function saveFile(img, name, id)
+{
+    //check if the name is unique
+    var image = await jimp.read(img) // if this fails it means that the image can't be loaded
+    var path = id + '/' + name + image.getExtension()
+    image.write(path)
+    //this should be ran before storing in mongo
+}
+
 async function main()
 {
     //var test = await kmeans("waterfallsunset.png",15, "kwaterfallsunset.png")

@@ -43,13 +43,26 @@ app.use(session({
     name: 'AuthCookie',
     secret: 'secret',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: true
 }));
 
 app.engine("handlebars", handlebarsInstance.engine);
 app.set("view engine", "handlebars");
 
 configRoutes(app);
+
+//404 Error Check
+  app.use(function (req, res, next) {
+    var err = new Error('File Not Found');
+    err.status = 404;
+    next(err);
+  });
+  
+  // error handler
+  app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.send(err.message);
+  });
 
 app.listen(3000, () => {
     console.log("We've now got a server!");

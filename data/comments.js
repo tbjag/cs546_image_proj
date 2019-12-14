@@ -33,7 +33,6 @@ module.exports = {
         if(typeof authorId!="string" && typeof authorId !="object") throw new Error("AuthorId is not string.");
 
         const commenter = await comments.get(authorId);
-
         let newComment = {
             time: Date.getTime(),
             content: content,

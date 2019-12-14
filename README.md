@@ -2,8 +2,15 @@
 
 ## hello and welcome to our cs 546 image project. 
 
-to do:
+### to do:
 
--set up routes 
--set up image and user databases
+-upload multer jimp gridFS combo
+-security cookie auth 
+-facebook / twitter API 
+
+## to run dev mode with nodemon
+
+npm run dev
+
+
 
