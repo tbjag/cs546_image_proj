@@ -54,7 +54,6 @@ module.exports = {
       for (let saltRounds = 0; saltRounds < 6; saltRounds++) {
         var hashedPassword = bcrypt.hashSync(userData.password, saltRounds);
       }
-
   
       var obj = {
         firstName: userData.firstName,
@@ -80,9 +79,10 @@ module.exports = {
       const user = await this.get(id);
       console.log(img);
       console.log(user);
+      let arr = user.imageTag.push(img);
       await userCollection.updateOne(
         {_id: id},
-        {$set: {"imageTag":[img,user.imageTag]}} );
+        {$set: {"imageTag": [arr]}} );
       const user1 = await this.get(id);
       console.log(user1);
     },

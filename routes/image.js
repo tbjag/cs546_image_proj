@@ -71,7 +71,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     //maybe redirect somewhere else??
   console.log('saved to database');
   //console.log(finalImg.image);
-  res.render('layouts/upload', {pics: "image.js", title: "Files", logged:true, username: dude.firstName});
+  res.render('layouts/upload', {pics: "image.jpg", title: "Files", logged:true, username: dude.firstName});
 });
 
 router.get("/all", async function (req,res){
