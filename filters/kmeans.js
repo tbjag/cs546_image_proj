@@ -1,7 +1,8 @@
 var jimp = require('jimp');
 var distance = require('euclidean-distance')
 
-function closeMean(pixel, means) {
+let exportedMethods = {
+closeMean(pixel, means) {
     var closeIndex = 0;
     var close = distance(pixel, means[0]);
     for (var i = 1; i < means.length; i++)
@@ -15,9 +16,9 @@ function closeMean(pixel, means) {
     }
     return closeIndex;
 
-}
+},
 
-function averageValue(arr) {
+averageValue(arr) {
     var count = arr.length;
     var red = 0;
     var green = 0;
@@ -35,9 +36,9 @@ function averageValue(arr) {
     green = Math.floor(green/count);
     alpha = Math.floor(alpha/count);
     return [red,green,blue,alpha]
-}
+},
 
-async function kmeans(img, k, output) {
+async kmeans(img, k, output) {
     var image = await jimp.read(img)
     var width = image.bitmap.width
     var height = image.bitmap.height
@@ -121,9 +122,9 @@ async function kmeans(img, k, output) {
 
 
 
-}
+},
 
-async function greyscale(img, output)
+async greyscale(img, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -131,9 +132,9 @@ async function greyscale(img, output)
     image.greyscale();
     image.write(output);
  
-}
+},
 
-async function invert(img, output)
+async invert(img, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -141,9 +142,9 @@ async function invert(img, output)
     image.invert();
     image.write(output);
  
-}
+},
 
-async function blur(img, r, output)
+async blur(img, r, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -151,9 +152,9 @@ async function blur(img, r, output)
     image.blur(r);
     image.write(output);
  
-}
+},
 
-async function dither(img, output)
+async dither(img, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -161,9 +162,9 @@ async function dither(img, output)
     image.dither565();
     image.write(output);
  
-}
+},
 
-async function sepia(img, output)
+async sepia(img, output)
 {
 	// Makes image appear vintage and romantic
     var image = await jimp.read(img)
@@ -172,9 +173,9 @@ async function sepia(img, output)
     image.sepia();
     image.write(output);
  
-}
+},
 
-async function posterize(img, r, output)
+async posterize(img, r, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -182,9 +183,9 @@ async function posterize(img, r, output)
     image.posterize(r);
     image.write(output);
  
-}
+},
 
-async function normalize(img, output)
+async normalize(img, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -192,9 +193,9 @@ async function normalize(img, output)
     image.normalize();
     image.write(output);
  
-}
+},
 
-async function opaque(img, output)
+async opaque(img, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -202,9 +203,9 @@ async function opaque(img, output)
     image.opaque();
     image.write(output);
  
-}
+},
 
-async function remBlue(img, output)
+async remBlue(img, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -216,9 +217,9 @@ async function remBlue(img, output)
  
     image.write(output);
  
-}
+},
 
-async function remRed(img, output)
+async remRed(img, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -230,9 +231,9 @@ async function remRed(img, output)
  
     image.write(output);
  
-}
+},
 
-async function remGreen(img, output)
+async remGreen(img, output)
 {
     var image = await jimp.read(img)
     var width = image.bitmap.width
@@ -244,9 +245,9 @@ async function remGreen(img, output)
  
     image.write(output);
  
-}
+},
 
-async function saveFile(img, name, id)
+async saveFile(img, name, id)
 {
     //check if the name is unique
     var image = await jimp.read(img) // if this fails it means that the image can't be loaded
@@ -255,7 +256,7 @@ async function saveFile(img, name, id)
     //this should be ran before storing in mongo
 }
 
-async function main()
+/*async function main()
 {
     //var test = await kmeans("waterfallsunset.png",15, "kwaterfallsunset.png")
     //var test2 = await greyscale("waterfallsunset.png","greywaterfallsunset.png") 
@@ -273,4 +274,6 @@ async function main()
 	
 }
 
-main()
+main()*/
+}
+module.exports = exportedMethods

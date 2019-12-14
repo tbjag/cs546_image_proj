@@ -12,6 +12,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
+const imgFilters = data.filters;
 
 router.post("/kmeans", async function (req,res){
     console.log("kmeansFILTER");
@@ -20,13 +21,15 @@ router.post("/kmeans", async function (req,res){
       if(req.session.userId){
         const inName = req.body.inputName
         const outName = req.body.outputName
-        const k = req.body.k
+        const k = Number(req.body.k)
         console.log(inName)
         console.log(outName)
         console.log(k)
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
-        // actually run the filter here
+        //actually run the filter here
+        imgFilters.kmeans(inName, k, outName)
+
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
@@ -43,7 +46,7 @@ router.post("/kmeans", async function (req,res){
   });
 
 router.post("/greyscale", async function (req,res){
-    console.log("greryscaleFILTER");
+    console.log("greyscaleFILTER");
     if(req.session.userId){
     try{
       if(req.session.userId){
@@ -54,6 +57,7 @@ router.post("/greyscale", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
+        imgFilters.greyscale(inName, outName)
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
@@ -81,6 +85,7 @@ router.post("/invert", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
+        imgFilters.invert(inName, outName)
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
@@ -109,6 +114,7 @@ router.post("/sepia", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
+        imgFilters.sepia(inName, outName)
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
@@ -136,6 +142,7 @@ router.post("/remBlue", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
+        imgFilters.remBlue(inName, outName)
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
@@ -163,6 +170,7 @@ router.post("/remRed", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
+        imgFilters.remRed(inName, outName)
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
@@ -190,6 +198,7 @@ router.post("/remGreen", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
+        imgFilters.remGreen(inName, outName)
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
@@ -219,6 +228,7 @@ router.post("/blur", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
+        imgFilters.blur(inName, k, outName)
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
@@ -248,6 +258,7 @@ router.post("/posterize", async function (req,res){
         const profile = await usersData.get(req.session.userId);
         //const rend = "layouts/" + filter
         // actually run the filter here
+        imgFilters.posterize(inName, k, outName)
         res.render("layouts/home", {logged:true, username: profile.firstName});
         return;
       }else{
