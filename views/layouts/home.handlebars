@@ -24,11 +24,6 @@
 <div class="content">
         <p class = "welcome">Welcome to PSLite!</p>
         {{#each imgarray}}
-            {{#if logged}}
-                <p><a href = "/image/"+{{id}}>{{name}}</a></p>
-            {{else}}
-                <p>{{name}}</p>
-                <p>You must be logged in to view these images</p>
-            {{/if}}
+            <p><a href = "/image/"+{{id}}>{{name}}</a></p>
         {{/each}}
 </div>
