@@ -178,5 +178,48 @@ module.exports = {
       if(str===null) return false;
 
       return true;
+    },
+
+    async nameUnique(name, id){
+        if(name == undefined) throw "The name is undefined"
+        if(id == undefined) throw "The id is undefined"
+
+        var ObjectID = require('mongodb').ObjectID;
+        id = new ObjectID(id)
+
+        const data = await users();
+        const user = await data.findOne({_id: id})
+        const imageArray = user.imageTag;
+        for (var i = 0; i < imageArray.length; i++)
+        {
+            if (name == imageArray[i].name)
+            {
+                return false
+            }
+        }
+        return true
+    },
+	
+	async getIdByName(name, userId){
+        if(name == undefined) throw "The name is undefined"
+        if(userId == undefined) throw "The id is undefined"
+        console.log("in getIdByName")
+        console.log("userId is " + userId)
+
+        var ObjectID = require('mongodb').ObjectID;
+        userId = new ObjectID(userId)
+
+        const data = await users();
+        const user = await data.findOne({_id: userId})
+        console.log("found user " + user.imageTag)
+        const imageArray = user.imageTag;
+        for (var i = 0; i < imageArray.length; i++)
+        {
+            if (name == imageArray[i].name)
+            {
+                return imageArray[i]._id
+            }
+        }
+        throw "cannot find the name"
     }
 }; 

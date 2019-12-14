@@ -1,7 +1,7 @@
 const mongoCollections = require("./collections");
 const images = mongoCollections.images;
-const users = require("/users");
-const comments = require("/comments");
+const users = require("./users");
+const comments = require("./comments");
 
 
 //Put into image database
@@ -50,6 +50,18 @@ async function get(id){
     return str;
 }
 
+async function getPath(id){
+    /*if (typeof id !== "string") throw "You must provide an id to search for";
+
+    const imageCollection = await images();
+    const objectId = ObjectId(id);*/
+    const imageCollection = await images();
+    const image = await imageCollection.findOne({ _id: id });
+    if (image === null) throw "No image with that id";
+
+    return image.filePath;
+}
+
 async function getAll(){
     const imageCollection = await images();
 
@@ -58,4 +70,4 @@ async function getAll(){
     return img;
 }
 
-module.exports = {addComment, get, getAll};
+module.exports = {addComment, get, getAll, getPath};
