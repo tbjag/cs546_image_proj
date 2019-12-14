@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/", (req,res) =>{
     if(req.session.user){
         //display user info -- might need to double check security on this one
-        let tString = "Welcome " + req.session.username;
+        let tString = "Welcome " + req.session.user;
         res.render("layouts/home", {title: tString, logged: true})
     }else{
         res.render("layouts/home", {title: "Welcome to PsLite", logged: false})
