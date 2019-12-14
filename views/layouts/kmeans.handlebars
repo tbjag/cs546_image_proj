@@ -23,19 +23,11 @@
 </div>
 <div class="content">
 	{{#if logged}}
-    <p>Choose a filter</p>
-    <form method="POST" id="myForm" action="/filters/filters">
-        <select id="filt" name="filt">
-            <option value="kmeans">KMeans</option>
-            <option value="greyscale">Greyscale</option>
-            <option value="invert">Invert</option>
-            <option value="sepia">Sepia</option>
-            <option value="remBlue">Remove Blue</option>
-            <option value="remGreen">Remove Green</option>
-            <option value="remRed">Remove Red</option>
-            <option value="blur">Blur</option>
-            <option value="posterize">Posterize</option>
-        </select>
+    <p>KMeans</p>
+    <form method="POST" id="myForm" action="/filters/kmeans">
+        <input type="text" name="inputName">
+        <input type="text" name="outputName">
+        <input type="number" name"k">
         <input type="submit" value="submit">
     </form>
     {{else}}
