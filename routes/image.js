@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const data = require("../data");
+const usersData = data.users;
 
 // @route GET /
 // @desc Loads form
