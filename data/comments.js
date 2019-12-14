@@ -1,5 +1,7 @@
 const mongoCollections = require("./collections");
 const comments = mongoCollections.comments;
+const users = require("/users");
+
 
 module.exports = {
     async getAll(){//Get all comments
@@ -32,7 +34,7 @@ module.exports = {
         if(typeof content!="string") throw new Error("Content is not string.");
         if(typeof authorId!="string" && typeof authorId !="object") throw new Error("AuthorId is not string.");
 
-        const commenter = await comments.get(authorId);
+        const commenter = await users.get(authorId);
         let newComment = {
             time: Date.getTime(),
             content: content,
@@ -46,27 +48,5 @@ module.exports = {
         const insert = await commentCollection.insertOne(newComment);
         const newId = insert.insertedId;
         return await this.getCommentById(newId);
-    },
-    //removes comment by ID
-    async removeComment(id) {
-        if(id==undefined) throw new Error("ID is undefined");
-        if(typeof id != "object" && typeof id !="string") throw new Error("ID must be string.");
-        const commentCollection = await comments();
-
-        var temp = await this.getCommentById(id);
-
-        var ObjectID = require('mongodb').ObjectID;
-        if(ObjectID.isValid(id)){
-            id = new ObjectID(id);
-        }else{
-            throw new Error("ID is not a valid ObjectID");
-        }
-        let deleted = {deleted: true, data: temp};
-        const deletionInfo = await commentCollection.removeOne({ _id: id });
-        if (deletionInfo.deletedCount === 0) {
-            throw new Error("Could not delete comment with id of ${id}");
-        }
-        return deleted;
     }
-
 };

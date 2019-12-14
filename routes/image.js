@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
+const commentData = data.comments;
 const mongoCollections = require("../data/collections");
 const users = mongoCollections.users;
 const images = mongoCollections.images;
+const comments = mongoCollections.comments;
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
@@ -71,6 +73,15 @@ router.post('/', upload.single('image'), async (req, res) => {
 
 router.get("/all", async function (req,res){
 
+});
+
+//Call this when the user clicks "Comment" wherever that will be
+//If we get spooked we can change this to comment1, comment2, ...comment5 where we only post 5 images on the feed
+router.post("/comment", async function (req,res){
+  const comment = await comments();
+  const commenter = await usersData.get(req.session.userId);
+  await commentData.addComment(req.body, commenter._id);
+  res.render('layouts/home', {comment: req.body, commenter: commenter.firstName+" "+commenter.lastName});
 });
 
   

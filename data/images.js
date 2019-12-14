@@ -1,13 +1,16 @@
-const mongoCollections = require("./collections");
+/*const mongoCollections = require("./collections");
 const images = mongoCollections.images;
+const users = require("/users");
+const comments = require("/comments");
 
+//Put into image database
 async function addComment(content, authorId){
     if(content==undefined) throw new Error("Content is undefined.");
     if(authorId==undefined) throw new Error("AuthorId is undefined.");
     if(typeof content!="string") throw new Error("Content is not string.");
     if(typeof authorId!="string" && typeof authorId !="object") throw new Error("AuthorId is not string.");
 
-    const commenter = await comments.get(authorId);
+    const commenter = await users.get(authorId);
 
     let newComment = {
         time: Date.getTime(),
@@ -26,3 +29,4 @@ async function addComment(content, authorId){
 
 
 module.exports = {addComment};
+*/
