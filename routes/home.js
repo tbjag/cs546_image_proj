@@ -8,6 +8,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
+const imageData = data.images;
 
 //should only be this .get
 router.get("/", async function (req,res){
