@@ -18,7 +18,8 @@ var storage = multer.diskStorage({
     cb(null, './public/images');
   },
   filename: function (req, file, cb) {
-    console.log(file.fieldname);
+    console.log("WE ARE HERE");
+    console.log(req.file);
     cb(null, file.fieldname +  path.extname(file.originalname));
   }
 });
