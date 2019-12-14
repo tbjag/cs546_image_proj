@@ -42,6 +42,7 @@ router.get("/", async function (req,res){
 });
 
 router.post('/', upload.single('image'), async (req, res) => {
+  console.log("at image :post")
   var img = fs.readFileSync(req.file.path);
   var encode_image = img.toString('base64');
   // Define a JSONobject for the image attributes for saving to database
