@@ -53,6 +53,8 @@ router.post('/', upload.single('image'), async (req, res) => {
   var img = fs.readFileSync(req.file.path);
   var encode_image = img.toString('base64');
   // Define a JSONobject for the image attributes for saving to database
+  let h = req.body.desc;
+  
   var finalImg = {
     contentType: req.file.mimetype,
     image:  new Buffer.from(encode_image, 'base64'),
@@ -66,20 +68,17 @@ router.post('/', upload.single('image'), async (req, res) => {
 
   const data = await images();
   const insertInfo = await data.insertOne(finalImg);
-  
-  //console.log("ID: "+finalImg._id);
+
   var fileName = req.body.name;
   console.log(req.session.userId);
   const dude = await usersData.get(req.session.userId);
   await usersData.addImageTag(finalImg, dude._id, fileName);
 
-  //const pics = await imageData.getAll();
-  //var imag = new Image(100,200);
-  //imag.src = finalImg.image;
-  //if (err) return console.log(err);
-    //maybe redirect somewhere else??
   console.log('saved to database');
-  //console.log(finalImg.image);
+  console.log(req.body);
+  console.log("File Desc: "+ h);
+  console.log("File Desc: "+req.body.name);
+  console.log("alex is dumb");
   res.render('layouts/upload', {pics: "image.jpg", title: "Files", logged:true, username: dude.firstName});
 });
 
@@ -95,8 +94,5 @@ router.post("/comment", async function (req,res){
   await commentData.addComment(req.body, commenter._id);//Need to get imageID here
   res.render('layouts/home', {comment: req.body, commenter: commenter.firstName+" "+commenter.lastName});
 });
-
-  
-
 
 module.exports = router;
