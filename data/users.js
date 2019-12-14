@@ -54,7 +54,6 @@ module.exports = {
       for (let saltRounds = 0; saltRounds < 6; saltRounds++) {
         var hashedPassword = bcrypt.hashSync(userData.password, saltRounds);
       }
-
   
       var obj = {
         firstName: userData.firstName,
@@ -64,7 +63,8 @@ module.exports = {
         city: userData.city,
         state: userData.state,
         age: userData.age,
-        hashedPassword: hashedPassword
+        hashedPassword: hashedPassword,
+        imageTag: []
       };
       
       const insertInfo = await data.insertOne(obj);
@@ -75,14 +75,19 @@ module.exports = {
       return user._id;
     },
 
-    async addImageTag(img, id){
+    async addImageTag(img, id, name){
       const userCollection = await users();
       const user = await this.get(id);
       console.log(img);
       console.log(user);
+      /*let imgArray = {
+        id: id,
+        name: name
+      }*/
+      let arr = user.imageTag.push(img);
       await userCollection.updateOne(
         {_id: id},
-        {$set: {"imageTag":[img,user.imageTag]}} );
+        {$set: {"imageTag": [arr]}} );
       const user1 = await this.get(id);
       console.log(user1);
     },
@@ -144,7 +149,7 @@ module.exports = {
       return str;
     },
     async get(id){
-      //console.log(id);
+      console.log("Got to get ID");
       var check = {};
       if(id == undefined) throw new Error("ID is undefined.");
       if(typeof id != "object" && typeof id !="string") throw new Error("ID must be string.");

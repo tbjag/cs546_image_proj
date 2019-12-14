@@ -1,0 +1,44 @@
+<div class="header" id="myHeader">
+  <span id = "spacer"></span>
+  <div class="home">
+    <h2><a href = '/home/'>Home</a></h2>
+  </div>
+  <span id = "spacer"></span>
+  <div class="filter">
+    <h2><a href = '/filters/'>Filters</a></h2>
+  </div>
+  <span id = "spacer"></span>
+  <div class = "Files">
+    <h2><a href = '/image/'>Files</a></h2>
+  </div>
+  <span id = "spacer"></span>
+  <div class="login">
+    {{#if logged}}
+        <h2><a href = '/profile/'>{{username}}</a></h2>
+    {{else}}
+        <h2><a href = '/profile/'>Log in</a></h2>
+    {{/if}}
+  </div>
+  <span id = "spacer"></span>
+</div>
+<div class="content">
+  <p>{{author}}</p>
+  <img src = {{url}} alt = "Selected image"></img>
+  {{#each comments}}
+    <p>{{author}}: {{time}}</p>
+    <p>{{comment}}</p>
+  {{/each}}
+  {{#if logged}}
+  <form id="comment-form" method="POST" action="/image/comment">
+    <div class="comment-form">
+      <label for="comment">{{user}}</label>
+      <input type="text" class="form-input" id="comment" name="comment" placeholder="Enter comment"><br>
+      <div class="form-group">
+          <button type="submit" class="btn">Comment</button>
+      </div>
+    </div>
+  </form>
+  {{else}}
+    <p>Please log in if you want to comment
+  {{/if}}
+</div>

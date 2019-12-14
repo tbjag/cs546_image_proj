@@ -3,6 +3,7 @@ const images = mongoCollections.images;
 const users = require("./users");
 const comments = require("./comments");
 
+
 //Put into image database
 async function addComment(content, authorId){
     if(content==undefined) throw new Error("Content is undefined.");
