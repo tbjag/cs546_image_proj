@@ -68,7 +68,7 @@ router.post('/acct', async function (req, res, next) {
       req.session.userId = newUser;
       //console.log(newUser);
       let arr = await imageData.getAll();
-      res.render("layouts/home", {logged:true, username: userData.firstName, imgarray: arr});
+      res.render("layouts/home", {logged:true, username: userData.firstName, imgarray: arr, id: arr.id, name:arr.name});
     }catch(e){
       console.log(e);
       res.sendStatus(500);
@@ -91,7 +91,7 @@ router.post('/acct', async function (req, res, next) {
 
       if (checkLogin.status) {
         let arr = await imageData.getAll();
-        res.render("layouts/home", {logged:true, username: dude.firstName, imgarray: arr});
+        res.render("layouts/home", {logged:true, username: dude.firstName, imgarray: arr, id: arr.id, name:arr.name});
         return;
       } else {
         res.render('layouts/profile', {loginstatus: false, loginmessage: checkLogin.message});

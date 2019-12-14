@@ -75,10 +75,6 @@ router.post('/', upload.single('image'), async (req, res) => {
   await usersData.addImageTag(finalImg, dude._id, fileName);
 
   console.log('saved to database');
-  console.log(req.body);
-  console.log("File Desc: "+ h);
-  console.log("File Desc: "+req.body.name);
-  console.log("alex is dumb");
   res.render('layouts/upload', {pics: "image.jpg", title: "Files", logged:true, username: dude.firstName});
 });
 
@@ -93,6 +89,10 @@ router.post("/comment", async function (req,res){
   const commenter = await usersData.get(req.session.userId);
   await commentData.addComment(req.body, commenter._id);//Need to get imageID here
   res.render('layouts/home', {comment: req.body, commenter: commenter.firstName+" "+commenter.lastName});
+});
+
+router.get("/:id", async function (req,res){
+  res.redirect("/");
 });
 
 module.exports = router;
