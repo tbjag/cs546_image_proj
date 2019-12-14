@@ -64,9 +64,7 @@ async function getPath(id){
 
 async function getAll(){
     const imageCollection = await images();
-
     const img = await imageCollection.find({}).toArray();
-
     return img;
 }
 

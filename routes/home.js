@@ -20,10 +20,12 @@ router.get("/", async function (req,res){
       //var ObjectID = require('mongodb').ObjectID;
       console.log("ID: " + req.session.userId);
       const profile = await usersData.get(req.session.userId);
-      res.render("layouts/home", {logged:true, username: profile.firstName});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {logged:true, username: profile.firstName, imgarray:arr});
       return;
     }else{
-      res.render("layouts/home", {title: "PSLite", logged:false});
+      let arr = await imageData.getAll();
+      res.render("layouts/home", {title: "PSLite", logged:false, imgarray:arr});
       return;
     }
   }catch(e){
