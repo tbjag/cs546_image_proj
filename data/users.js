@@ -76,11 +76,11 @@ module.exports = {
       return user._id;
     },
 
-    async addImageTag(img, id){
+    async addImageTag(img){
       const userCollection = await users();
-      const user = await userCollection.get(id);
-      userCollection.updateOne(
-        {"imageTag": user.imageTag},
+      //const user = await userCollection.get(id);
+      await userCollection.updateOne(
+        {"_id": id},
         {$set: {"imageTag":img}} );
     },
 

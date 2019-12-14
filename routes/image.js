@@ -56,8 +56,9 @@ router.post('/', upload.single('image'), async (req, res) => {
   const data = await images();
   const insertInfo = await data.insertOne(finalImg);
   //console.log(result);
-  //const userData = await users();
-  //const user = await userData.get(req.session.userId);
+  const userData = await users();
+  const user = await userData.get(req.session.userId);
+  await user.addImageTag(insertInfo._id);
 
 
 
