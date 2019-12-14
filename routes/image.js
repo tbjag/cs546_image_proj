@@ -6,6 +6,7 @@ const mongoCollections = require("../data/collections");
 const images = mongoCollections.images;
 const multer = require('multer');
 const fs = require('fs');
+const path = require('path');
 
 // SET STORAGE
 var storage = multer.diskStorage({
@@ -13,7 +14,7 @@ var storage = multer.diskStorage({
     cb(null, './public/images');
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())+ '.' + mime.extension(file.mimetype));
+    cb(null, file.fieldname +  path.extname(file.originalname));
   }
 });
  
