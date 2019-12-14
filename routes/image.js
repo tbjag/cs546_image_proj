@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
+const multer = require('multer');
 
 // SET STORAGE
 var storage = multer.diskStorage({
