@@ -3,6 +3,7 @@ const router = express.Router();
 const data = require("../data");
 const usersData = data.users;
 const mongoCollections = require("../data/collections");
+const users = mongoCollections.users;
 const images = mongoCollections.images;
 const multer = require('multer');
 const fs = require('fs');
@@ -23,7 +24,7 @@ var upload = multer({ storage: storage });
 // @route GET /
 // @desc Loads form
 router.get("/", async function (req,res){
-  console.log("IMAGE");
+  //console.log("IMAGE");
   if(req.session.userId){
   try{
     if(req.session.userId){
@@ -57,8 +58,8 @@ router.post('/', upload.single('image'), async (req, res) => {
   const insertInfo = await data.insertOne(finalImg);
   //console.log(result);
   const userData = await users();
-  const user = await userData.get(req.session.userId);
-  await user.addImageTag(insertInfo._id);
+  const user = await usersData.get(req.session.userId);
+  await usersData.addImageTag(insertInfo._id, user._id);
 
 
 

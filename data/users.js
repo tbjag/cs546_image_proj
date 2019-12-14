@@ -76,7 +76,7 @@ module.exports = {
       return user._id;
     },
 
-    async addImageTag(img){
+    async addImageTag(img, id){
       const userCollection = await users();
       //const user = await userCollection.get(id);
       await userCollection.updateOne(
