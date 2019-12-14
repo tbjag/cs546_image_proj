@@ -28,4 +28,17 @@
     <p>{{author}}: {{time}}</p>
     <p>{{comment}}</p>
   {{/each}}
+  {{#if logged}}
+  <form id="comment-form" method="POST" action="/image/comment">
+    <div class="comment-form">
+      <label for="comment">{{user}}</label>
+      <input type="text" class="form-input" id="comment" name="comment" placeholder="Enter comment"><br>
+      <div class="form-group">
+          <button type="submit" class="btn">Comment</button>
+      </div>
+    </div>
+  </form>
+  {{else}}
+    <p>Please log in if you want to comment
+  {{/if}}
 </div>
