@@ -21,7 +21,7 @@ router.get("/", async function (req,res){
       //console.log("ID: " + req.session.userId);
       const profile = await usersData.get(req.session.userId);
       let arr = await imageData.getAll();
-      console.log(arr[0]._id);
+      //console.log(arr[0]._id);
       res.render("layouts/home", {logged:true, username: profile.firstName, imgarray:arr});
       return;
     }else{
