@@ -85,19 +85,42 @@
 </form>
 
 <script>
-	function checkRegister(){
-  firstN = document.getElementById("firstname").value;
-  lastN = document.getElementById("lastname").value;
-  age = document.getElementById("age").value;
+	function checkRegister(event){
+  let firstN = document.getElementById("firstname").value;
+  if(firstN.length == 0){
+	  alert("input first name");
+		event.preventDefault();
+  }
+  let lastN = document.getElementById("lastname").value;
+  if(lastN.length == 0){
+	  alert("input first name");
+		event.preventDefault();
+  }
+  let age = document.getElementById("age").value;
   if(age<0){
     alert("please enter correct age");
+	event.preventDefault();
   }
-  email = document.getElementById("registeremail").value;
-  gender = document.getElementById("registerpassword").value;
-  city = document.getElementById("city").value;
-  state = document.getElementById("state").value;
-  console.log(firstN + lastN);
-  alert("HIII");
+  //email = document.getElementById("registeremail").value;
+  let gender = document.getElementById("registerpassword").value;
+  if(gender.length == 0){
+	  alert("input first name");
+		event.preventDefault();
+  }
+  let city = document.getElementById("city").value;
+  if(city.length == 0){
+	  alert("input first name");
+		event.preventDefault();
+  }
+  let state = document.getElementById("state").value;
+  if(state.length == 0){
+	  alert("input first name");
+		event.preventDefault();
+  }
 }
+let form = document.getElementById("registration-form");
+form.addEventListener("submit", function(event){
+	checkRegister(event);
+ }, false);
 </script>
 {{/if}}
