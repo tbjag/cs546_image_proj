@@ -52,12 +52,13 @@ router.post("/kmeans", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + " with k as " + req.body.k
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -73,7 +74,7 @@ router.post("/kmeans", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+            res.render("layouts/kmeans",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -117,12 +118,13 @@ router.post("/greyscale", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + " in greyscale"
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -139,7 +141,8 @@ router.post("/greyscale", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/greyscale",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
+
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -183,12 +186,13 @@ router.post("/invert", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + " in invert"
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -205,7 +209,8 @@ router.post("/invert", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/invert",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
+
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -250,12 +255,13 @@ router.post("/sepia", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + "in sepia"
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -272,7 +278,7 @@ router.post("/sepia", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/sepia",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -316,12 +322,13 @@ router.post("/remBlue", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + " in remBlue"
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -338,7 +345,8 @@ router.post("/remBlue", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/remBlue",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
+
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -382,12 +390,13 @@ router.post("/remRed", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + "in remRed"
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -404,7 +413,7 @@ router.post("/remRed", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/remRed",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -448,12 +457,13 @@ router.post("/remGreen", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + "in remGreen"
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -470,7 +480,7 @@ router.post("/remGreen", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/remGreen",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -516,12 +526,13 @@ router.post("/blur", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + " blurred by " + req.body.k
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -538,7 +549,8 @@ router.post("/blur", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/blur",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
+
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -584,12 +596,13 @@ router.post("/posterize", async function (req,res){
         
 			var img = jimp.read(testOut);
 			var encode_image = img.toString('base64');
+            var descrip = inName + " posterized by " + req.body.k
 			// Define a JSONobject for the image attributes for saving to database
 			var finalImg = {
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
 				filepath: testOut
 			};
 			const data = await images();
@@ -606,7 +619,7 @@ router.post("/posterize", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/posterize",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
