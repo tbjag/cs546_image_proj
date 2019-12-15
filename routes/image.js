@@ -91,9 +91,11 @@ router.post("/:id/comment", async function (req,res){
   console.log(req.body.comment);
   await commentData.addComment(req.body.comment, commenter._id, arr._id);//Need to get imageID here
   var allComments = await commentData.getAll();
-  
+  var all = allComments.filter((value)=>{
+     return value.imageID == req.params.id;
+  })
   if(req.session.userId){
-    res.render('layouts/image', {logged: true, comments: allComments, username: commenter.firstName, id: arr._id, url: arr.filepath});
+    res.render('layouts/image', {logged: true, comments: all, username: commenter.firstName, id: arr._id, url: arr.filepath});
   }else{
     res.render('layouts/image', {logged: false, username: commenter.firstName});
   }
@@ -106,7 +108,10 @@ router.get("/:id", async function (req,res){
     const dude = await usersData.get(req.session.userId);
     //console.log(arr.filepath);
     var allComments = await commentData.getAll();
-    res.render("layouts/image", {username:dude.firstName, logged: true, url: arr.filepath, id: arr._id, comments: allComments});
+    var all = allComments.filter((value)=>{
+      return value.imageID == req.params.id;
+   })
+    res.render("layouts/image", {username:dude.firstName, logged: true, url: arr.filepath, id: arr._id, comments: all});
   }else{
     res.render("layouts/image", {logged: false, url: arr.filepath});
   }
