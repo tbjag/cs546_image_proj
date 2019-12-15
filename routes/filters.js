@@ -74,7 +74,7 @@ router.post("/kmeans", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+            res.render("layouts/kmeans",{logged: true, username: profile.firstName, imgarray: arr, status: true, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});

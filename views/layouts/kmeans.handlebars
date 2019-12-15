@@ -36,6 +36,9 @@
         <label for="k">K value</label>
         <input type="number" class="form-input" id = "k" name="k" placeholder="Enter K value"><br>
         <input type="submit" value="submit">
+        {{#unless status}}
+            <p class = "error">{{message}}</p>
+        {{/unless}}
     </form>
   {{else}}
     <p>Please log in to use our filters!</p>
