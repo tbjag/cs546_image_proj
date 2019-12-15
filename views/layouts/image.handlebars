@@ -26,11 +26,11 @@
   <p>{{description}}</p>
   <p>Comments</p>
   {{#each comments}}
-    <p>{{author}}: {{time}}</p>
+    <p>{{author.name}}: {{time}}</p>
     <p>{{comment}}</p>
   {{/each}}
   {{#if logged}}
-  <form id="comment-form" method="POST" action="/image/comment">
+  <form id="comment-form" method="POST" action="/image/{{id}}/comment">
     <div class="comment-form">
       <label for="comment">{{user}}</label>
       <input type="text" class="form-input" id="comment" name="comment" placeholder="Enter comment"><br>

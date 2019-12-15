@@ -84,11 +84,19 @@ router.get("/all", async function (req,res){
 
 //Call this when the user clicks "Comment" wherever that will be
 //If we get spooked we can change this to comment1, comment2, ...comment5 where we only post 5 images on the feed
-router.post("/comment", async function (req,res){
-  const comment = await comments();
+router.post("/:id/comment", async function (req,res){
+  console.log("COMMENT");
+  let arr = await imageData.get(req.params.id);
   const commenter = await usersData.get(req.session.userId);
-  await commentData.addComment(req.body, commenter._id);//Need to get imageID here
-  res.render('layouts/home', {comment: req.body, commenter: commenter.firstName+" "+commenter.lastName});
+  console.log(req.body.comment);
+  await commentData.addComment(req.body.comment, commenter._id, arr._id);//Need to get imageID here
+  var allComments = await commentData.getAll();
+  
+  if(req.session.userId){
+    res.render('layouts/image', {logged: true, comments: allComments, username: commenter.firstName, id: arr._id, url: arr.filepath});
+  }else{
+    res.render('layouts/image', {logged: false, username: commenter.firstName});
+  }
 });
 
 router.get("/:id", async function (req,res){
@@ -96,8 +104,9 @@ router.get("/:id", async function (req,res){
   let arr = await imageData.get(req.params.id);
   if(req.session.userId){
     const dude = await usersData.get(req.session.userId);
-    console.log(arr.filepath);
-    res.render("layouts/image", {username:dude.firstName, logged: true, url: arr.filepath});
+    //console.log(arr.filepath);
+    var allComments = await commentData.getAll();
+    res.render("layouts/image", {username:dude.firstName, logged: true, url: arr.filepath, id: arr._id, comments: allComments});
   }else{
     res.render("layouts/image", {logged: false, url: arr.filepath});
   }

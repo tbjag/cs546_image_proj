@@ -6,9 +6,7 @@ const users = require("./users");
 module.exports = {
     async getAll(){//Get all comments
         const commentCollection = await comments();
-
         const comment = await commentCollection.find({}).toArray();
-
         return comment;
     },
     //gets comment by ID
@@ -33,15 +31,16 @@ module.exports = {
         if(authorId==undefined) throw new Error("AuthorId is undefined.");
         if(typeof content!="string") throw new Error("Content is not string.");
         if(typeof authorId!="string" && typeof authorId !="object") throw new Error("AuthorId is not string.");
-
+        var time = new Date();
         const commenter = await users.get(authorId);
         let newComment = {
-            time: Date.getTime(),
-            content: content,
+            time: time,
+            comment: content,
             author:{
                 id: authorId,
-                name: commenter.name
-            } 
+                name: commenter.firstName + " " + commenter.lastName,
+            },
+            imageID: imageID
         };
         const commentCollection = await comments();
 
