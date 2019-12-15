@@ -141,7 +141,8 @@ router.post("/greyscale", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/greyscale",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
+
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -208,7 +209,8 @@ router.post("/invert", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/invert",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
+
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -276,7 +278,7 @@ router.post("/sepia", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/sepia",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -343,7 +345,8 @@ router.post("/remBlue", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/remBlue",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
+
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -410,7 +413,7 @@ router.post("/remRed", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/remRed",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -477,7 +480,7 @@ router.post("/remGreen", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/remGreen",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -546,7 +549,8 @@ router.post("/blur", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/blur",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
+
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});
@@ -615,7 +619,7 @@ router.post("/posterize", async function (req,res){
             return;
         }
         else{
-            console.log("this isn't good")
+          res.render("layouts/posterize",{logged: true, username: profile.firstName, imageTag: profile.imageTag, status: false, message: "Output name is already used. Please use unique name"})
           }
       }else{
         res.render("layouts/filter", {title: "PSLite Filters", logged:false});

@@ -34,7 +34,11 @@
         <label for="outputName">Output Name</label>
         <input type="text" class="form-input" id= "outputName" name="outputName" placeholder="Enter output name"><br>
         <input type="submit" value="submit">
+        {{#unless status}}
+            <p class = "error">{{message}}</p>
+        {{/unless}}
     </form>
+
     {{else}}
     <p>Please log in to use our filters!</p>
     {{/if}}
