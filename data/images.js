@@ -48,10 +48,8 @@ async function get(id){
 }
 
 async function getPath(id){
-    //if (typeof id !== "string") throw "You must provide an id to search for";
-
     const imageCollection = await images();
-    console.log(id)
+    //console.log(id)
     const image = await imageCollection.findOne({ _id: id });
     if (image === null) throw "No image with that id";
 

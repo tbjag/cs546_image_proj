@@ -78,8 +78,8 @@ module.exports = {
     async addImageTag(img, id, name){
       const userCollection = await users();
       const user = await this.get(id);
-      console.log(img);
-      console.log(user);
+      //console.log(img);
+      //console.log(user);
       /*let imgArray = {
         id: id,
         name: name
@@ -88,7 +88,7 @@ module.exports = {
         {_id: id},
         {$push: {imageTag: {name: name, imgId: img._id}}} );
       const user1 = await this.get(id);
-      console.log(user1);
+      //console.log(user1);
     },
 
     async checkLogin(user, pass){
@@ -140,15 +140,15 @@ module.exports = {
       const data = await users();
       const str = await data.findOne({email: email })
       if(str===null){
-        console.log("str null");
+        //console.log("str null");
         check = {message:"Incorrect email or password", status: false};
         return check;
       };
-      console.log("str out");
+      //console.log("str out");
       return str;
     },
     async get(id){
-      console.log("Got to get ID");
+      //console.log("Got to get ID");
       var check = {};
       if(id == undefined) throw new Error("ID is undefined.");
       if(typeof id != "object" && typeof id !="string") throw new Error("ID must be string.");

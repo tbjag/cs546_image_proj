@@ -14,7 +14,7 @@ const xss = require("xss");
 
 router.get("/", async function (req,res){
   if(!req.session.userId){
-    console.log("No session");
+    //console.log("No session");
     res.render("layouts/profile", {logged:false, title:"Profile"});
     return;
   }else{
@@ -75,7 +75,6 @@ router.post('/acct', async function (req, res, next) {
       res.sendStatus(500);
     }
   }else if (req.body.logemail && req.body.logpassword) {//If the user tried to login run this
-    //console.log("second if");
     try{
       const checkLogin = await usersData.checkLogin(req.body.logemail, req.body.logpassword);//Check Login needs to be tested
       const dude = await usersData.getEmail(req.body.logemail);
@@ -83,12 +82,8 @@ router.post('/acct', async function (req, res, next) {
         res.render('layouts/profile', {loginstatus: false, loginmessage: dude.message});
         return;
       }
-      //console.log("???");
-      //var ObjectID = require('mongodb').ObjectID;
-      //const dudeID = await usersData.get(dude._id);
 
       req.session.userId = dude._id;
-      //console.log("dudeID: " + req.session.userId);
 
       if (checkLogin.status) {
         let arr = await imageData.getAll();
@@ -101,8 +96,7 @@ router.post('/acct', async function (req, res, next) {
     }catch(e){
       console.log(e);
       res.sendStatus(500);
-    }   //Reload page after login but user is now authenticated so it should go somewhere
-                                        //Maybe this should be render profile with the log thing but idk
+    }
   } else {//User did not fill out all fields in login or register
     res.render('layouts/profile', {loginstatus:false, registerstatus: false, registermessage: "Log in or Register", loginmessage:"Log in or Register"});
     return;

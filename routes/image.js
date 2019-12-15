@@ -29,7 +29,6 @@ var upload = multer({ storage: storage });
 // @route GET /
 // @desc Loads form
 router.get("/", async function (req,res){
-  //console.log("IMAGE");
   if(req.session.userId){
   try{
     if(req.session.userId){
@@ -59,7 +58,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     contentType: req.file.mimetype,
     image:  new Buffer.from(encode_image, 'base64'),
     name: req.body.name,
-    description: req.body.desc, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+    description: req.body.desc,
     filepath: "public/images/" + req.session.userId + req.body.name + ".jpg"
   };
 
@@ -70,7 +69,7 @@ router.post('/', upload.single('image'), async (req, res) => {
   const insertInfo = await data.insertOne(finalImg);
 
   var fileName = req.body.name;
-  console.log(req.session.userId);
+  //console.log(req.session.userId);
   const dude = await usersData.get(req.session.userId);
   await usersData.addImageTag(finalImg, dude._id, fileName);
 
@@ -82,14 +81,11 @@ router.get("/all", async function (req,res){
 
 });
 
-//Call this when the user clicks "Comment" wherever that will be
-//If we get spooked we can change this to comment1, comment2, ...comment5 where we only post 5 images on the feed
+//Call this when the user clicks "Comment"
 router.post("/:id/comment", async function (req,res){
-  console.log("COMMENT");
   let arr = await imageData.get(req.params.id);
   const commenter = await usersData.get(req.session.userId);
-  console.log(req.body.comment);
-  await commentData.addComment(req.body.comment, commenter._id, arr._id);//Need to get imageID here
+  await commentData.addComment(req.body.comment, commenter._id, arr._id);
   var allComments = await commentData.getAll();
   var all = allComments.filter((value)=>{
      return value.imageID == req.params.id;
@@ -102,11 +98,9 @@ router.post("/:id/comment", async function (req,res){
 });
 
 router.get("/:id", async function (req,res){
-  //console.log("TESTe");
   let arr = await imageData.get(req.params.id);
   if(req.session.userId){
     const dude = await usersData.get(req.session.userId);
-    //console.log(arr.filepath);
     var allComments = await commentData.getAll();
     var all = allComments.filter((value)=>{
       return value.imageID == req.params.id;

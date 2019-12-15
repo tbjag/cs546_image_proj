@@ -58,13 +58,11 @@ router.post("/kmeans", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip,
 				filepath: testOut
 			};
 			const data = await images();
 			const insertInfo = await data.insertOne(finalImg);
-  
-			//console.log("ID: "+finalImg._id);
 			var fileName = outName;
 			console.log(req.session.userId);
 			const dude = await usersData.get(req.session.userId);
@@ -124,13 +122,12 @@ router.post("/greyscale", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, 
 				filepath: testOut
 			};
 			const data = await images();
 			const insertInfo = await data.insertOne(finalImg);
   
-			//console.log("ID: "+finalImg._id);
 			var fileName = outName;
 			console.log(req.session.userId);
 			const dude = await usersData.get(req.session.userId);
@@ -192,7 +189,7 @@ router.post("/invert", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip,
 				filepath: testOut
 			};
 			const data = await images();
@@ -261,7 +258,7 @@ router.post("/sepia", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, 
 				filepath: testOut
 			};
 			const data = await images();
@@ -328,7 +325,7 @@ router.post("/remBlue", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip,
 				filepath: testOut
 			};
 			const data = await images();
@@ -396,7 +393,7 @@ router.post("/remRed", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip,
 				filepath: testOut
 			};
 			const data = await images();
@@ -463,7 +460,7 @@ router.post("/remGreen", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, 
 				filepath: testOut
 			};
 			const data = await images();
@@ -532,7 +529,7 @@ router.post("/blur", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, 
 				filepath: testOut
 			};
 			const data = await images();
@@ -602,7 +599,7 @@ router.post("/posterize", async function (req,res){
 				contentType: "img/jpg",
 				image:  new Buffer.from(encode_image, 'base64'),
 				name: outName,
-				description: descrip, //MAKE SURE WE PRINT ALT TEXT FOR EVERY IMAGE
+				description: descrip, 
 				filepath: testOut
 			};
 			const data = await images();
@@ -610,7 +607,7 @@ router.post("/posterize", async function (req,res){
   
 			//console.log("ID: "+finalImg._id);
 			var fileName = outName;
-			console.log(req.session.userId);
+			//console.log(req.session.userId);
 			const dude = await usersData.get(req.session.userId);
 			await usersData.addImageTag(finalImg, dude._id, fileName);			
 
