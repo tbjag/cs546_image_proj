@@ -4,9 +4,11 @@
 
 ### DB  DUMP
 
-## to run dev mode with nodemon
+#### create a DB called Group_22
+#### import the images 
+#### then move images to public/images if its not already there
 
-npm run dev
+
 
 
 
